@@ -19,10 +19,13 @@ namespace GamedevProject.Classes
             }
 
             //sprite spiegelen
-            movable.SpriteEffects = direction.X == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            
 
-            movable.currentAnimation = direction.X == 0 ? 
-
+            movable.currentAnimation = direction.X == 0 ? Animations.Idle : Animations.Run;
+            if(direction.X == -1)
+                movable.SpriteEffects = SpriteEffects.FlipHorizontally;
+            else if(direction.X == 1)
+                movable.SpriteEffects = SpriteEffects.None;
 
 
             var afstand = direction * movable.Speed;

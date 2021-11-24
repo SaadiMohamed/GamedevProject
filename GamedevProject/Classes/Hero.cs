@@ -14,8 +14,7 @@ namespace GamedevProject.Classes
     class Hero : IGameObject , IMovable
     {
         Texture2D heroTexture;
-        private Animation runAnimation;
-        private Animation idleAnimation;
+        
         public Animation currentAnimation { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Speed { get; set; }
@@ -26,7 +25,9 @@ namespace GamedevProject.Classes
 
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
-            heroTexture = texture;
+             Animation runAnimation;
+             Animation idleAnimation;
+        heroTexture = texture;
             this.InputReader = inputReader;
             runAnimation = new Animation();
             idleAnimation = new Animation();
@@ -46,12 +47,12 @@ namespace GamedevProject.Classes
             // idle-animatie
             for (int i = 0; i < 5; i++)
             {
-                runAnimation.AddFrame(new AnimationFrame(new Rectangle(x_coordinate, 127, 30, 33)));
+                idleAnimation.AddFrame(new AnimationFrame(new Rectangle(x_coordinate, 30, 30, 33)));
                 x_coordinate += 96;
             }
             Animations.Idle = idleAnimation;
             Animations.Run = runAnimation;
-            currentAnimation = idleAnimation;
+            currentAnimation = Animations.Idle;
 
         }
 
@@ -68,7 +69,7 @@ namespace GamedevProject.Classes
         public void Update(GameTime gameTime)
         {
             Move();
-            runAnimation.Update(gameTime);
+            currentAnimation.Update(gameTime);
         }
 
         public void Draw(SpriteBatch _spriteBatch)
