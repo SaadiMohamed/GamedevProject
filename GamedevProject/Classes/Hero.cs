@@ -27,7 +27,7 @@ namespace GamedevProject.Classes
         {
              Animation runAnimation;
              Animation idleAnimation;
-        heroTexture = texture;
+            heroTexture = texture;
             this.InputReader = inputReader;
             runAnimation = new Animation();
             idleAnimation = new Animation();
