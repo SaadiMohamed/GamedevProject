@@ -11,7 +11,7 @@ using System.Text;
 
 namespace GamedevProject.Classes
 {
-    class Hero : IGameObject , IMovable
+    class Hero : IGameObject , IMovable, IJumpable
     {
         Texture2D heroTexture;
         
@@ -20,21 +20,25 @@ namespace GamedevProject.Classes
         public Vector2 Speed { get; set; }
         public IInputReader InputReader { get; set; }
         public SpriteEffects SpriteEffects { get; set; }
+        public bool HasJumped { get ; set; }
+        public float HeightDestination { get ; set; }
+        public int JumpHeight { get ; set; }
 
         private MovementManager movementManager;
 
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
-             Animation runAnimation;
-             Animation idleAnimation;
+            Animation runAnimation;
+            Animation idleAnimation;
             heroTexture = texture;
             this.InputReader = inputReader;
             runAnimation = new Animation();
             idleAnimation = new Animation();
             this.Position = position;
-            Speed = new Vector2(2, 2);
+            Speed = new Vector2(4, 4);
             movementManager = new MovementManager();
-
+            HasJumped = false;
+            JumpHeight = 64;
             int x_coordinate = 0;
             // loop-animatie
             for (int i = 0; i < 8; i++)
@@ -44,7 +48,7 @@ namespace GamedevProject.Classes
             }
 
             x_coordinate = 0;
-            // idle-animatie
+            //idle - animatie
             for (int i = 0; i < 5; i++)
             {
                 idleAnimation.AddFrame(new AnimationFrame(new Rectangle(x_coordinate, 30, 30, 33)));

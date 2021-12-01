@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
 
 namespace GamedevProject.Classes
 {
@@ -11,6 +13,7 @@ namespace GamedevProject.Classes
     {
         public void Move(IMovable movable)
         {
+            var jumpable = movable as IJumpable;
             var direction = movable.InputReader.ReadInput();
             if (movable.InputReader.IsDestinationInput)
             {
@@ -18,25 +21,51 @@ namespace GamedevProject.Classes
                 direction.Normalize();
             }
 
-            //sprite spiegelen
-            
-
+            //soorten animations idle en lopen
             movable.currentAnimation = direction.X == 0 ? Animations.Idle : Animations.Run;
-            if(direction.X == -1)
+
+            //direction.Y == 1
+            if (direction.X == -1)
                 movable.SpriteEffects = SpriteEffects.FlipHorizontally;
-            else if(direction.X == 1)
+            else if (direction.X == 1)
                 movable.SpriteEffects = SpriteEffects.None;
 
-
-            var afstand = direction * movable.Speed;
-            var toekomstigePositie = movable.Position + afstand;
-
-            if ((toekomstigePositie.X <= (800 - 60) && toekomstigePositie.X > 0) && (toekomstigePositie.Y <= 480 - 66 && toekomstigePositie.Y > 0))
+            //spring animation
+            if (jumpable != null)
             {
-                movable.Position = toekomstigePositie;
+                if (direction.Y == 1 && !jumpable.HasJumped && jumpable.HeightDestination <= 0)
+                {
+                    jumpable.HasJumped = true;
+                    jumpable.HeightDestination = movable.Position.Y;
+                }
+
+                if (jumpable.HasJumped && jumpable.HeightDestination - jumpable.JumpHeight < movable.Position.Y)
+                {
+                    movable.Position += new Vector2(0, -8f);
+                }
+                else if (jumpable.HeightDestination > movable.Position.Y)
+                {
+                    movable.Position += new Vector2(0, 4f);
+                    jumpable.HasJumped = false;
+                }
+                else
+                {
+                    jumpable.HeightDestination = 0;
+                }
             }
 
+            var distance = direction * movable.Speed;
+            var futurePosition = movable.Position + distance ;
 
+            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
+            {
+                movable.Position = futurePosition;
+            }
+
+            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
+            {
+                movable.Position = futurePosition;
+            }
         }
 
     }

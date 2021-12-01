@@ -26,6 +26,12 @@ namespace GamedevProject.Input
             {
                 direction.X = 0;
             }
+
+            if(state.IsKeyDown(Keys.Space))
+            {
+                direction.Y = 1;
+            }
+            
             return direction;
         }
 
