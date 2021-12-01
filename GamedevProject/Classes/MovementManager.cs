@@ -66,6 +66,8 @@ namespace GamedevProject.Classes
             {
                 movable.Position = futurePosition;
             }
+
+
         }
 
     }

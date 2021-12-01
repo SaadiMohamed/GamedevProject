@@ -13,9 +13,8 @@ namespace GamedevProject
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _heroTexture;
-        List<Hero> movables = new List<Hero>(); 
         private Hero hero;
-        private Hero hero2;
+        private Texture2D blockTexture;
 
         public Game1()
         {
@@ -29,9 +28,6 @@ namespace GamedevProject
             // TODO: Add your initialization logic here
             base.Initialize();
             hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(1,414));
-            hero2 = new Hero(_heroTexture, new KeyboardReader(), new Vector2(120, 414));
-            movables.Add(hero);
-            movables.Add(hero2);
         }
         
         protected override void LoadContent()
@@ -40,6 +36,10 @@ namespace GamedevProject
 
             // TODO: use this.Content to load your game content here
             _heroTexture = Content.Load<Texture2D>("Santa - Sprite Sheet");
+            blockTexture = new Texture2D(GraphicsDevice, 1,1);
+            blockTexture.SetData(new[] {Color.White});
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -48,9 +48,8 @@ namespace GamedevProject
                 Exit();
 
             //TODO: Add your update logic here
-            movables[0].Update(gameTime);
-            movables[1].Update(gameTime);
-            base.Update(gameTime);
+            hero.Update(gameTime);
+            base.Update(gameTime);           
         }
 
         protected override void Draw(GameTime gameTime)
@@ -59,7 +58,7 @@ namespace GamedevProject
             _spriteBatch.Begin();
             // TODO: Add your drawing code here
             hero.Draw(_spriteBatch);
-            hero2.Draw(_spriteBatch);
+            _spriteBatch.Draw(blockTexture, new Rectangle(100,414, 100,100),Color.Red);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
