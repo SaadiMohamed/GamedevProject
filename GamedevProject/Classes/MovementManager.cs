@@ -53,21 +53,18 @@ namespace GamedevProject.Classes
                     jumpable.HeightDestination = 0;
                 }
             }
-
+            ICollide collide = movable as ICollide;
             var distance = direction * movable.Speed;
-            var futurePosition = movable.Position + distance ;
-
-            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
+            var futureHitbox =new Rectangle(collide.HitBox.X + (int)distance.X,collide.HitBox.Y + (int) distance.Y, collide.HitBox.Width, collide.HitBox.Height);
+            var futurePosition = movable.Position + distance;
+           
+            bool hasCollide = new CollisionManager().HasCollide(futureHitbox, new Rectangle(100, 414, 50, 50));
+                   
+            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0 && !hasCollide)
             {
                 movable.Position = futurePosition;
+                collide.HitBox = futureHitbox;
             }
-
-            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
-            {
-                movable.Position = futurePosition;
-            }
-
-
         }
 
     }

@@ -27,7 +27,7 @@ namespace GamedevProject
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(1,414));
+            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(0,414));
         }
         
         protected override void LoadContent()
@@ -58,7 +58,7 @@ namespace GamedevProject
             _spriteBatch.Begin();
             // TODO: Add your drawing code here
             hero.Draw(_spriteBatch);
-            _spriteBatch.Draw(blockTexture, new Rectangle(100,414, 100,100),Color.Red);
+            _spriteBatch.Draw(blockTexture, new Rectangle(100,430, 50,50),Color.Red);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

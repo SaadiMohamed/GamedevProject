@@ -15,6 +15,8 @@ namespace GamedevProject.Interfaces
         IInputReader InputReader { get; set; }
         SpriteEffects SpriteEffects { get; set; }
         Animation currentAnimation { get; set; }
+
+
        
     }
 }

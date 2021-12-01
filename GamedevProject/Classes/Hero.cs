@@ -11,7 +11,7 @@ using System.Text;
 
 namespace GamedevProject.Classes
 {
-    class Hero : IGameObject , IMovable, IJumpable
+    class Hero : IGameObject , IMovable, IJumpable, ICollide
     {
         Texture2D heroTexture;
         
@@ -23,9 +23,12 @@ namespace GamedevProject.Classes
         public bool HasJumped { get ; set; }
         public float HeightDestination { get ; set; }
         public int JumpHeight { get ; set; }
+        public Rectangle HitBox { get; set; }
 
         private MovementManager movementManager;
 
+        private CollisionManager collisionManager;
+        private Color backgroundColor = Color.White;
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
             Animation runAnimation;
@@ -37,8 +40,10 @@ namespace GamedevProject.Classes
             this.Position = position;
             Speed = new Vector2(4, 4);
             movementManager = new MovementManager();
+            collisionManager = new CollisionManager();
             HasJumped = false;
             JumpHeight = 64;
+            HitBox = new Rectangle((int) position.X,(int)position.Y,60,66);
             int x_coordinate = 0;
             // loop-animatie
             for (int i = 0; i < 8; i++)
@@ -68,6 +73,7 @@ namespace GamedevProject.Classes
         public void Move()
         {
             movementManager.Move(this);
+       
         }
 
         public void Update(GameTime gameTime)
@@ -78,7 +84,7 @@ namespace GamedevProject.Classes
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(heroTexture, Position, currentAnimation.CurrentFrame.SourceRectangle, Color.White,0,new Vector2(),2,SpriteEffects,0f);
+            _spriteBatch.Draw(heroTexture, Position, currentAnimation.CurrentFrame.SourceRectangle, backgroundColor,0,new Vector2(),2,SpriteEffects,0f);
         }
 
     }
