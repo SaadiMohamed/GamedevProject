@@ -13,7 +13,8 @@ namespace GamedevProject.Classes
     {
         public void Move(IMovable movable)
         {
-            var jumpable = movable as IJumpable;
+            ICollide collide = movable as ICollide;
+            IJumpable jumpable = movable as IJumpable;
             var direction = movable.InputReader.ReadInput();
             if (movable.InputReader.IsDestinationInput)
             {
@@ -30,9 +31,11 @@ namespace GamedevProject.Classes
             else if (direction.X == 1)
                 movable.SpriteEffects = SpriteEffects.None;
 
+            
             //spring animation
             if (jumpable != null)
             {
+                int vector = 0;
                 if (direction.Y == 1 && !jumpable.HasJumped && jumpable.HeightDestination <= 0)
                 {
                     jumpable.HasJumped = true;
@@ -41,24 +44,30 @@ namespace GamedevProject.Classes
 
                 if (jumpable.HasJumped && jumpable.HeightDestination - jumpable.JumpHeight < movable.Position.Y)
                 {
-                    movable.Position += new Vector2(0, -8f);
+                    vector = -8;
+ 
                 }
                 else if (jumpable.HeightDestination > movable.Position.Y)
                 {
-                    movable.Position += new Vector2(0, 4f);
+                    
                     jumpable.HasJumped = false;
+                    vector = 4;
                 }
                 else
                 {
                     jumpable.HeightDestination = 0;
+
                 }
+                movable.Position += new Vector2(0, vector);
+                collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + vector, collide.HitBox.Width, collide.HitBox.Height);
             }
-            ICollide collide = movable as ICollide;
+
+            
             var distance = direction * movable.Speed;
             var futureHitbox =new Rectangle(collide.HitBox.X + (int)distance.X,collide.HitBox.Y + (int) distance.Y, collide.HitBox.Width, collide.HitBox.Height);
             var futurePosition = movable.Position + distance;
            
-            bool hasCollide = new CollisionManager().HasCollide(futureHitbox, new Rectangle(100, 414, 50, 50));
+            bool hasCollide = new CollisionManager().HasCollide(futureHitbox, new Rectangle(300, 414, 50, 50));
                    
             if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0 && !hasCollide)
             {
