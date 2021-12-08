@@ -7,8 +7,8 @@ namespace GamedevProject.Interfaces
     interface IJumpable
     {
         bool HasJumped { get; set; }
-        float HeightDestination { get; set; }
-        int Landing { get; set; }
+        float HeightDeparture{ get; set; }
+        float Landing { get; set; }
         int JumpHeight { get; set; }
     }
 }
