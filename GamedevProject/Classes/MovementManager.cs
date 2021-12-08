@@ -52,6 +52,7 @@ namespace GamedevProject.Classes
 
                     jumpable.HasJumped = false;
                     vector = 4;
+                    direction = new Vector2(direction.X,0);
                 }
                 else
                 {
@@ -63,6 +64,7 @@ namespace GamedevProject.Classes
             }
 
             // vliegen door direction
+            
             var distance = direction * movable.Speed;
             var futurePosition = movable.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
