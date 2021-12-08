@@ -43,8 +43,8 @@ namespace GamedevProject.Classes
             movementManager = new MovementManager();
             collisionManager = new CollisionManager();
             HasJumped = false;
-            JumpHeight = 72;
-            HitBox = new Rectangle((int) position.X,(int)position.Y,60,66);
+            JumpHeight = 80;
+            HitBox = new Rectangle((int) position.X,(int)position.Y,58,66);
             Landing = 414;
             int x_coordinate = 0;
             // loop-animatie

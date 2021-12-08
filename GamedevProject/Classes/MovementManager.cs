@@ -52,19 +52,16 @@ namespace GamedevProject.Classes
 
                     jumpable.HasJumped = false;
                     vector = 4;
-                    direction = new Vector2(direction.X,0);
                 }
                 else
                 {
                     jumpable.HeightDeparture = 0;
+                    jumpable.HasJumped = false;
 
                 }
                 movable.Position += new Vector2(0, vector);
                 collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + vector, collide.HitBox.Width, collide.HitBox.Height);
-            }
-
-            // vliegen door direction
-            
+            }           
             var distance = direction * movable.Speed;
             var futurePosition = movable.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
@@ -74,15 +71,15 @@ namespace GamedevProject.Classes
             {
                 new Rectangle(300, 414, 50, 50),
                 new Rectangle(500, 414, 50, 50),
-                new Rectangle(650, 400, 50, 50)
+                new Rectangle(650, 388, 50, 50)
             };
             float landing = 0;
             foreach (var collision in collisions)
             {
                 hasCollide = new CollisionManager().HasCollide(futureHitbox, collision);
-                if (hasCollide && collision.Top <= futureHitbox.Bottom)
+                if (hasCollide && collision.Top <= futureHitbox.Bottom + jumpable.JumpHeight)
                 {
-                    landing = jumpable.Landing = collision.Top - collision.Height + 2;
+                    landing = jumpable.Landing = collision.Top - collision.Height;
                     break;
                 }
             }
