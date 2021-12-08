@@ -59,6 +59,7 @@ namespace GamedevProject
             // TODO: Add your drawing code here
             hero.Draw(_spriteBatch);
             _spriteBatch.Draw(blockTexture, new Rectangle(300,430, 50,50),Color.Red);
+            _spriteBatch.Draw(blockTexture, new Rectangle(400, 390, 50, 50), Color.Blue);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

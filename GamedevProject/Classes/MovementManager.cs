@@ -35,6 +35,7 @@ namespace GamedevProject.Classes
             //spring animation
             if (jumpable != null)
             {
+
                 int vector = 0;
                 if (direction.Y == 1 && !jumpable.HasJumped && jumpable.HeightDestination <= 0)
                 {
@@ -47,7 +48,7 @@ namespace GamedevProject.Classes
                     vector = -8;
  
                 }
-                else if (jumpable.HeightDestination > movable.Position.Y)
+                else if ( movable.Position.Y < jumpable.Landing)
                 {
                     
                     jumpable.HasJumped = false;
@@ -67,13 +68,46 @@ namespace GamedevProject.Classes
             var futureHitbox =new Rectangle(collide.HitBox.X + (int)distance.X,collide.HitBox.Y + (int) distance.Y, collide.HitBox.Width, collide.HitBox.Height);
             var futurePosition = movable.Position + distance;
            
-            bool hasCollide = new CollisionManager().HasCollide(futureHitbox, new Rectangle(300, 414, 50, 50));
-                   
-            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0 && !hasCollide)
+            bool hasCollide = new CollisionManager().HasCollide(futureHitbox, new Rectangle(300, 414, 50, 48));
+
+            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0 && !hasCollide || movable.Position.Y <= 364 )
             {
                 movable.Position = futurePosition;
                 collide.HitBox = futureHitbox;
             }
+            if(hasCollide && new Rectangle(300, 414, 50, 48).Top >= futureHitbox.Y)
+            {
+                jumpable.Landing = new Rectangle(300, 414, 50, 48).Top - new Rectangle(300, 414, 50, 48).Height - 4;
+            }                
+            else
+                jumpable.Landing = 414;
+
+            hasCollide = new CollisionManager().HasCollide(futureHitbox, new Rectangle(400, 390, 50, 50));
+            if (hasCollide && new Rectangle(300, 414, 50, 48).Top >= futureHitbox.Y)
+            {
+                jumpable.Landing = new Rectangle(300, 414, 50, 48).Top - new Rectangle(300, 414, 50, 48).Height - 4;
+            }
+            else
+                jumpable.Landing = 414;
+            //List<Rectangle> collisions = new List<Rectangle>();
+            //collisions.Add(new Rectangle(300, 414, 50, 50));
+            //collisions.Add(new Rectangle(400, 390, 50, 50));
+
+                //foreach (var collision in collisions)
+                //{
+                //    hasCollide = new CollisionManager().HasCollide(futureHitbox, collision);
+                //    if (hasCollide && collision.Top > futureHitbox.Y)
+                //    {
+                //        jumpable.Landing = collision.Top - collision.Height - 2;
+                //        Debug.WriteLine(collision.Top - collision.Height);
+                //        movable.Position = new Vector2(movable.Position.X, jumpable.Landing);
+                //        break;
+                //    }
+                //    else
+                //        jumpable.Landing = 414;
+
+                //}
+
         }
 
     }

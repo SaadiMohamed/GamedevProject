@@ -24,6 +24,7 @@ namespace GamedevProject.Classes
         public float HeightDestination { get ; set; }
         public int JumpHeight { get ; set; }
         public Rectangle HitBox { get; set; }
+        public int Landing { get ; set ; }
 
         private MovementManager movementManager;
 
@@ -44,6 +45,7 @@ namespace GamedevProject.Classes
             HasJumped = false;
             JumpHeight = 72;
             HitBox = new Rectangle((int) position.X,(int)position.Y,60,66);
+            Landing = 414;
             int x_coordinate = 0;
             // loop-animatie
             for (int i = 0; i < 8; i++)

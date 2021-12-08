@@ -8,7 +8,7 @@ namespace GamedevProject.Interfaces
     {
         bool HasJumped { get; set; }
         float HeightDestination { get; set; }
-
+        int Landing { get; set; }
         int JumpHeight { get; set; }
     }
 }
