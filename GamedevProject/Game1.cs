@@ -15,6 +15,7 @@ namespace GamedevProject
         private Texture2D _heroTexture;
         private Hero hero;
         private Texture2D blockTexture;
+        private Texture2D _backgroundTexture;
 
         public Game1()
         {
@@ -37,6 +38,7 @@ namespace GamedevProject
             // TODO: use this.Content to load your game content here
             _heroTexture = Content.Load<Texture2D>("Santa - Sprite Sheet");
             blockTexture = new Texture2D(GraphicsDevice, 1,1);
+            _backgroundTexture = Content.Load<Texture2D>("BG");
             blockTexture.SetData(new[] {Color.White});
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -57,6 +59,7 @@ namespace GamedevProject
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             // TODO: Add your drawing code here
+            _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             hero.Draw(_spriteBatch);
             _spriteBatch.Draw(blockTexture, new Rectangle(300,430, 50,50),Color.Red);
             _spriteBatch.Draw(blockTexture, new Rectangle(500, 430, 50, 50), Color.Blue);
