@@ -45,8 +45,7 @@ namespace GamedevProject.Classes
 
                 if (jumpable.HasJumped && jumpable.HeightDeparture - jumpable.JumpHeight < movable.Position.Y)
                 {
-                    vector = -8;
-
+                    vector = -8;                   
                 }
                 else if (movable.Position.Y < jumpable.Landing)
                 {
@@ -63,23 +62,25 @@ namespace GamedevProject.Classes
                 collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + vector, collide.HitBox.Width, collide.HitBox.Height);
             }
 
-
+            // vliegen door direction
             var distance = direction * movable.Speed;
-            var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
             var futurePosition = movable.Position + distance;
+            var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
             bool hasCollide = false;
-            List<Rectangle> collisions = new List<Rectangle>();
-            collisions.Add(new Rectangle(300, 414, 50, 50));
-            collisions.Add(new Rectangle(500, 414, 50, 50));
-            collisions.Add(new Rectangle(700, 414, 50, 50));
+            List<Rectangle> collisions = new List<Rectangle>
+            {
+                new Rectangle(300, 414, 50, 50),
+                new Rectangle(500, 414, 50, 50),
+                new Rectangle(650, 400, 50, 50)
+            };
             float landing = 0;
             foreach (var collision in collisions)
             {
                 hasCollide = new CollisionManager().HasCollide(futureHitbox, collision);
-                if (hasCollide && collision.Top >= futureHitbox.Y)
+                if (hasCollide && collision.Top <= futureHitbox.Bottom)
                 {
-                    landing = jumpable.Landing = 414 - collision.Height;
+                    landing = jumpable.Landing = collision.Top - collision.Height + 2;
                     break;
                 }
             }

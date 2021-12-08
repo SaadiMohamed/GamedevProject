@@ -63,7 +63,7 @@ namespace GamedevProject
             hero.Draw(_spriteBatch);
             _spriteBatch.Draw(blockTexture, new Rectangle(300,430, 50,50),Color.Red);
             _spriteBatch.Draw(blockTexture, new Rectangle(500, 430, 50, 50), Color.Blue);
-            _spriteBatch.Draw(blockTexture, new Rectangle(700, 430, 50, 50), Color.Blue);
+            _spriteBatch.Draw(blockTexture, new Rectangle(650, 416, 50, 50), Color.Green);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
