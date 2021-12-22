@@ -67,12 +67,10 @@ namespace GamedevProject.Classes
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
             bool hasCollide = false;
-            //List<Rectangle> collisions = new List<Rectangle>
-            //{
-            //    // block voor collision
-            //};
-
             List<Rectangle> collisions = new List<Rectangle>
+            {
+                // block voor collision
+            };
             float landing = 0;
             foreach (var collision in collisions)
             {
