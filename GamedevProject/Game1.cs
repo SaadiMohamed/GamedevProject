@@ -1,4 +1,5 @@
-﻿using GamedevProject.Classes;
+﻿using GamedevProject.Blocks;
+using GamedevProject.Classes;
 using GamedevProject.Input;
 using GamedevProject.Interfaces;
 using Microsoft.Xna.Framework;
@@ -16,6 +17,8 @@ namespace GamedevProject
         private Hero hero;
         private Texture2D blockTexture;
         private Texture2D _backgroundTexture;
+        private List<Block> blocks; 
+        int[,] gameboard;
 
         public Game1()
         {
@@ -28,7 +31,30 @@ namespace GamedevProject
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200,414));
+            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200,360));
+            blocks = new List<Block>();
+            gameboard = new int[,]
+            {
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,1,2,2,2,3,0,0,0,0},
+                { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
+            };
+
+            for (int i = 0; i < gameboard.GetLength(0); i++)
+            {
+                for (int j = 0; j < gameboard.GetLength(1); j++)
+                {
+                    blocks.Add(BlockFactory.CreateBlock((SoortBlok)gameboard[i,j],j*50,i*50 -20, GraphicsDevice, this.Content));
+                }
+
+            }
         }
         
         protected override void LoadContent()
@@ -41,7 +67,6 @@ namespace GamedevProject
             _backgroundTexture = Content.Load<Texture2D>("BG");
             blockTexture.SetData(new[] {Color.White});
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -61,9 +86,13 @@ namespace GamedevProject
             // TODO: Add your drawing code here
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             hero.Draw(_spriteBatch);
-            _spriteBatch.Draw(blockTexture, new Rectangle(300,430, 50,50),Color.Red);
-            _spriteBatch.Draw(blockTexture, new Rectangle(500, 430, 50, 50), Color.Blue);
-            _spriteBatch.Draw(blockTexture, new Rectangle(650, 402, 50, 50), Color.Green);
+            foreach (Block blok in blocks)
+            {
+                if (blok != null)
+                {
+                    blok.Draw(_spriteBatch);
+                }
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
