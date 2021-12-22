@@ -6,12 +6,13 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
+using GamedevProject.Blocks;
 
 namespace GamedevProject.Classes
 {
     class MovementManager
     {
-        public void Move(IMovable movable)
+        public void Move(IMovable movable, List<Block> blocks)
         {
             ICollide collide = movable as ICollide;
             IJumpable jumpable = movable as IJumpable;
@@ -45,7 +46,7 @@ namespace GamedevProject.Classes
 
                 if (jumpable.HasJumped && jumpable.HeightDeparture - jumpable.JumpHeight < movable.Position.Y)
                 {
-                    vector = -8;                   
+                    vector = -8;
                 }
                 else if (movable.Position.Y < jumpable.Landing)
                 {
@@ -61,40 +62,38 @@ namespace GamedevProject.Classes
                 }
                 movable.Position += new Vector2(0, vector);
                 collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + vector, collide.HitBox.Width, collide.HitBox.Height);
-            }           
+            }
             var distance = direction * movable.Speed;
             var futurePosition = movable.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
             bool hasCollide = false;
-            List<Rectangle> collisions = new List<Rectangle>
-            {
-                // block voor collision
-            };
             float landing = 0;
-            foreach (var collision in collisions)
+            foreach (var block in blocks)
             {
-                hasCollide = new CollisionManager().HasCollide(futureHitbox, collision);
-                if (hasCollide && collision.Top <= futureHitbox.Bottom + jumpable.JumpHeight)
+                if (block != null)
+                    hasCollide = new CollisionManager().HasCollide(futureHitbox, block.BoundingBox);
+                if (hasCollide && block.BoundingBox.Top <= futureHitbox.Bottom + jumpable.JumpHeight)
                 {
-                    landing = jumpable.Landing = collision.Top - collision.Height;
+                    jumpable.Landing = block.BoundingBox.Top - block.BoundingBox.Height;
+                    landing = block.BoundingBox.Top - 16 - block.BoundingBox.Height;
                     break;
                 }
             }
-            
-            if (futurePosition.X <= (800 - 60)&& futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
+
+            if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
             {
-                if(!hasCollide || movable.Position.Y <= jumpable.Landing)
+                if (!hasCollide || movable.Position.Y <= jumpable.Landing)
                 {
                     movable.Position = futurePosition;
                     collide.HitBox = futureHitbox;
-                    jumpable.Landing = 360;
-                }              
+                    jumpable.Landing = 362;
+                }
             }
 
-            if(hasCollide)
-            {           
-                jumpable.Landing = landing - 4;
+            if (hasCollide)
+            {
+                jumpable.Landing = landing ;
             }
         }
 

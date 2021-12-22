@@ -17,9 +17,9 @@ namespace GamedevProject
         private Hero hero;
         private Texture2D blockTexture;
         private Texture2D _backgroundTexture;
-        private List<Block> blocks; 
+        private List<Block> blocks;
         int[,] gameboard;
-
+        Level level1;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,41 +31,21 @@ namespace GamedevProject
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200,360));
+            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 362));
             blocks = new List<Block>();
-            gameboard = new int[,]
-            {
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,1,2,2,2,3,0,0,0,0},
-                { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
-            };
-
-            for (int i = 0; i < gameboard.GetLength(0); i++)
-            {
-                for (int j = 0; j < gameboard.GetLength(1); j++)
-                {
-                    blocks.Add(BlockFactory.CreateBlock((SoortBlok)gameboard[i,j],j*50,i*50 -20, GraphicsDevice, this.Content));
-                }
-
-            }
+            level1 = new Level(hero);
+            level1.FillBlocks(this.GraphicsDevice, this.Content);
         }
-        
+
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
             _heroTexture = Content.Load<Texture2D>("Santa - Sprite Sheet");
-            blockTexture = new Texture2D(GraphicsDevice, 1,1);
+            blockTexture = new Texture2D(GraphicsDevice, 1, 1);
             _backgroundTexture = Content.Load<Texture2D>("BG");
-            blockTexture.SetData(new[] {Color.White});
+            blockTexture.SetData(new[] { Color.White });
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -76,7 +56,7 @@ namespace GamedevProject
 
             //TODO: Add your update logic here
             hero.Update(gameTime);
-            base.Update(gameTime);           
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -86,15 +66,10 @@ namespace GamedevProject
             // TODO: Add your drawing code here
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             hero.Draw(_spriteBatch);
-            foreach (Block blok in blocks)
-            {
-                if (blok != null)
-                {
-                    blok.Draw(_spriteBatch);
-                }
-            }
+            level1.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
+            level1.Start();
         }
     }
 }

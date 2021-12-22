@@ -45,7 +45,7 @@ namespace GamedevProject.Classes
             HasJumped = false;
             JumpHeight = 80;
             HitBox = new Rectangle((int) position.X,(int)position.Y,58,66);
-            Landing = 414;
+            Landing = 362;
             int x_coordinate = 0;
             // loop-animatie
             for (int i = 0; i < 8; i++)
@@ -72,15 +72,9 @@ namespace GamedevProject.Classes
             this.InputReader = inputReader;
         }
 
-        public void Move()
-        {
-            movementManager.Move(this);
-       
-        }
 
         public void Update(GameTime gameTime)
         {
-            Move();
             currentAnimation.Update(gameTime);
         }
 

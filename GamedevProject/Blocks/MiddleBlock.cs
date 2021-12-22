@@ -14,7 +14,7 @@ namespace GamedevProject.Blocks
             BoundingBox = base.BoundingBox;
             Passable = false;
             Color = Color.White;
-            Texture = content.Load<Texture2D>("2");
+            Texture = content.Load<Texture2D>(@"TilesGround\2");
         }
     }
 }
