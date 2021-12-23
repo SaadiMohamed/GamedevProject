@@ -40,7 +40,7 @@ namespace GamedevProject.Classes
             var futurePosition = movable.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
-            var (hasCollide, previousLanding) = CheckCollision(blocks, futureHitbox, jumpable);
+            var (hasCollide, previousLanding) = new CollisionManager().CheckCollisions(blocks, futureHitbox, jumpable);
 
             if(previousLanding != jumpable.Landing)
                 futurePosition = new Vector2(futurePosition.X, previousLanding);
@@ -93,25 +93,6 @@ namespace GamedevProject.Classes
             return vector;
         }
 
-        private (bool hasCollide, float previousLanding) CheckCollision(List<Block> blocks, Rectangle futureHitbox, IJumpable jumpable)
-        {
-            bool hasCollide = false;
-            var previousLanding = jumpable.Landing;
-            foreach (var block in blocks)
-            {
-                if (block != null)
-                    hasCollide = new CollisionManager().HasCollide(futureHitbox, block.BoundingBox);
-                if (hasCollide && block.BoundingBox.Top - 50 <= futureHitbox.Bottom + jumpable.JumpHeight)
-                {
-                    jumpable.Landing = block.BoundingBox.Top - 50;
-                    previousLanding = block.BoundingBox.Top - 50 - 16;
-                   
-                    break;
-                }
-            }
-
-            return (hasCollide, previousLanding);
-        }
     }
 
 }
