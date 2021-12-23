@@ -44,6 +44,8 @@ namespace GamedevProject.Classes
             {
                 for (int j = 0; j < gameboard.GetLength(1); j++)
                 {
+                    if( i == 8 && j == 6)
+                        Console.WriteLine();
                     blocks.Add(BlockFactory.CreateBlock((SoortBlok)gameboard[i, j], j * 50, i * 50 - 20, graphicsDevice, content));
                 }
 

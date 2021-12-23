@@ -26,9 +26,6 @@ namespace GamedevProject.Classes
         public Rectangle HitBox { get; set; }
         public float Landing { get ; set ; }
 
-        private MovementManager movementManager;
-
-        private CollisionManager collisionManager;
         private Color backgroundColor = Color.White;
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
@@ -40,8 +37,6 @@ namespace GamedevProject.Classes
             idleAnimation = new Animation();
             this.Position = position;
             Speed = new Vector2(4, 4);
-            movementManager = new MovementManager();
-            collisionManager = new CollisionManager();
             HasJumped = false;
             JumpHeight = 80;
             HitBox = new Rectangle((int) position.X,(int)position.Y,58,66);

@@ -11,7 +11,7 @@ namespace GamedevProject.Blocks
     {
         public LeftBottomBlock(int x, int y, GraphicsDevice graphics, ContentManager content) : base(x, y, graphics)
         {
-            BoundingBox = base.BoundingBox;
+            BoundingBox = BoundingBox;
             Passable = false;
             Color = Color.White;
             Texture = content.Load<Texture2D>(@"TilesGround\1");
