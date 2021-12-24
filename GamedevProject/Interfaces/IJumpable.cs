@@ -32,7 +32,7 @@ namespace GamedevProject.Interfaces
             {
 
                 HasJumped = false;
-                vector = 4;
+                vector = 8;
                 IsFalling = true;
             }
             else
