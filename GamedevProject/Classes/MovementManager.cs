@@ -34,7 +34,7 @@ namespace GamedevProject.Classes
 
             if (jumpable != null)
             {
-                collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + Jump(direction, jumpable), collide.HitBox.Width, collide.HitBox.Height);
+                collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + jumpable.Jump(direction), collide.HitBox.Width, collide.HitBox.Height);
             }
             var distance = direction * movable.Speed;
             var futurePosition = movable.Position + distance;
@@ -42,7 +42,7 @@ namespace GamedevProject.Classes
 
             var (hasCollide, previousLanding) = CollisionManager.CheckCollisions(blocks, futureHitbox, jumpable);
 
-            if(previousLanding != jumpable.Landing)
+            if (previousLanding != jumpable.Landing)
                 futurePosition = new Vector2(futurePosition.X, previousLanding);
 
             if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
@@ -61,38 +61,6 @@ namespace GamedevProject.Classes
 
 
         }
-
-
-        private int Jump(Vector2 direction, IJumpable jumpable)
-        {
-            int vector = 0;
-            var movable = jumpable as IMovable;
-            if (direction.Y == 1 && !jumpable.HasJumped && jumpable.HeightDeparture <= 0)
-            {
-                jumpable.HasJumped = true;
-                jumpable.HeightDeparture = movable.Position.Y;
-            }
-
-            if (jumpable.HasJumped && jumpable.HeightDeparture - jumpable.JumpHeight < movable.Position.Y)
-            {
-                vector = -8;
-            }
-            else if (movable.Position.Y < jumpable.Landing)
-            {
-
-                jumpable.HasJumped = false;
-                vector = 4;
-            }
-            else
-            {
-                jumpable.HeightDeparture = 0;
-                jumpable.HasJumped = false;
-
-            }
-            movable.Position += new Vector2(0, vector);
-            return vector;
-        }
-
     }
 
 }
