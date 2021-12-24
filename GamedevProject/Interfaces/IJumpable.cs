@@ -7,6 +7,7 @@ namespace GamedevProject.Interfaces
 {
     interface IJumpable
     {
+        bool IsFalling { get; set; }
         bool HasJumped { get; set; }
         float HeightDeparture{ get; set; }
         float Landing { get; set; }
@@ -17,7 +18,7 @@ namespace GamedevProject.Interfaces
         {
             int vector = 0;
             var movable = this as IMovable;
-            if (direction.Y == 1 && !HasJumped && HeightDeparture <= 0)
+            if (direction.Y == 1 && !HasJumped && HeightDeparture <= 0 && !IsFalling)
             {
                 HasJumped = true;
                 HeightDeparture = movable.Position.Y;
@@ -32,11 +33,13 @@ namespace GamedevProject.Interfaces
 
                 HasJumped = false;
                 vector = 4;
+                IsFalling = true;
             }
             else
             {
                 HeightDeparture = 0;
                 HasJumped = false;
+                IsFalling = false;
 
             }
             movable.Position += new Vector2(0, vector);

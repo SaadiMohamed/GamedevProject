@@ -15,6 +15,7 @@ namespace GamedevProject.Classes
     {
         Texture2D heroTexture;
         
+        public bool IsFalling { get; set; }
         public Animation currentAnimation { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Speed { get; set; }
@@ -41,6 +42,7 @@ namespace GamedevProject.Classes
             JumpHeight = 80;
             HitBox = new Rectangle((int) position.X,(int)position.Y,58,66);
             Landing = 362;
+            IsFalling = false;
             int x_coordinate = 0;
             // loop-animatie
             for (int i = 0; i < 8; i++)
