@@ -9,13 +9,13 @@ namespace GamedevProject.Classes
 {
     class CollisionManager
     {
-        private bool HasCollide(Rectangle rec1, Rectangle rec2)
+        private static bool HasCollide(Rectangle rec1, Rectangle rec2)
         {
            return rec1.Intersects(rec2);
                
         }
 
-        public (bool hasCollide, float previousLanding) CheckCollisions(List<Block> blocks, Rectangle futureHitbox, IJumpable jumpable)
+        public static (bool hasCollide, float previousLanding) CheckCollisions(List<Block> blocks, Rectangle futureHitbox, IJumpable jumpable)
         {
             bool hasCollide = false;
             var previousLanding = jumpable.Landing;

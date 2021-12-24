@@ -40,7 +40,7 @@ namespace GamedevProject.Classes
             var futurePosition = movable.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
-            var (hasCollide, previousLanding) = new CollisionManager().CheckCollisions(blocks, futureHitbox, jumpable);
+            var (hasCollide, previousLanding) = CollisionManager.CheckCollisions(blocks, futureHitbox, jumpable);
 
             if(previousLanding != jumpable.Landing)
                 futurePosition = new Vector2(futurePosition.X, previousLanding);
