@@ -72,7 +72,7 @@ namespace GamedevProject.Classes
             spriteBatch.Draw(_block, _hero.HitBox, Color.Red * 0.2f);
             for (var i = 0; i < _hero.Lives; i++)
             {
-                spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
+                spriteBatch.Draw(heart, new Vector2(i * 50, 0), Color.White);
             }
             foreach (var obj in _objects.Where(x => x != null).ToList())
             {
