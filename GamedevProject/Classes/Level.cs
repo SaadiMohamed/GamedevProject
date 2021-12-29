@@ -1,4 +1,5 @@
 ﻿using GamedevProject.Blocks;
+using GamedevProject.Input;
 using GamedevProject.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,14 +13,14 @@ namespace GamedevProject.Classes
     internal class Level
     {
         Hero hero;
+        Texture2D _heroTexture;
         Monster monster;
         List<IGameObject> objects;
         int[,] gameboard;
         MovementManager movementManager;
         Texture2D block;
-        public Level(Hero hero)
+        public Level()
         {
-            this.hero = hero;
             objects = new List<IGameObject>();
             movementManager = new MovementManager();
             gameboard = new int[,]
@@ -44,7 +45,8 @@ namespace GamedevProject.Classes
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
-            
+            _heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
+            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 100));
             monster = new Monster(content);
             for (int i = 0; i < gameboard.GetLength(0); i++)
             {
@@ -68,6 +70,9 @@ namespace GamedevProject.Classes
                     
                 }
             }
+
+            hero.Draw(spriteBatch);
+            //spriteBatch.Draw(block, hero.HitBox, Color.Red * 0.2f);
         }
 
         public void Update(GameTime gameTime)
@@ -79,6 +84,7 @@ namespace GamedevProject.Classes
                     monster.Update(gameTime);
                 }
             }
+            hero.Update(gameTime);
         }
     }
 }

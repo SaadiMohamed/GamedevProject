@@ -2,6 +2,7 @@
 using GamedevProject.Classes;
 using GamedevProject.Input;
 using GamedevProject.Interfaces;
+using GamedevProject.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,10 +14,16 @@ namespace GamedevProject
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Texture2D _heroTexture;
-        private Hero hero;
         private Texture2D blockTexture;
         private Texture2D _backgroundTexture;
+        private State _nextState;
+        private State _currentState;
+
+        public void ChangeState(State state)
+        {
+            _nextState = state;
+        }
+
         Level level1;
         public Game1()
         {
@@ -29,21 +36,18 @@ namespace GamedevProject
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 100));
-            level1 = new Level(hero);
-            level1.AddObjects(this.GraphicsDevice, this.Content);
+            IsMouseVisible = true;
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            _heroTexture = Content.Load<Texture2D>("Santa - Sprite Sheet");           
+            // TODO: use this.Content to load your game content here          
             blockTexture = new Texture2D(GraphicsDevice, 1, 1);
             _backgroundTexture = Content.Load<Texture2D>("BG");
             blockTexture.SetData(new[] { Color.White });
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -51,9 +55,15 @@ namespace GamedevProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if(_nextState != null)
+            {
+                _currentState = _nextState;
+                _nextState = null;
+            }
+
             //TODO: Add your update logic here
-            hero.Update(gameTime);
-            level1.Update(gameTime);
+
+            _currentState.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -62,15 +72,12 @@ namespace GamedevProject
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();        
             // TODO: Add your drawing code here
+            _spriteBatch.Begin();
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            hero.Draw(_spriteBatch);
-            _spriteBatch.Draw(blockTexture, hero.HitBox, Color.Red * 0.2f);
-            level1.Draw(_spriteBatch);
+            _currentState.Draw(gameTime, _spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
-            level1.Start();
         }
     }
 }
