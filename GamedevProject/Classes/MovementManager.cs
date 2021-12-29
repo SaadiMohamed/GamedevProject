@@ -24,7 +24,7 @@ namespace GamedevProject.Classes
             }
 
             //soorten animations idle en lopen
-            movable.currentAnimation = direction.X == 0 ? Animations.Idle : Animations.Run;
+            movable.currentAnimation = direction.X == 0 ? movable.movableAnimations.Idle : movable.movableAnimations.Run;
 
             //direction.Y == 1
             if (direction.X == -1)

@@ -6,7 +6,9 @@ namespace GamedevProject.Classes
 {
     class Animations
     {
-        static public Animation Idle { get; set; }
-        static public Animation Run { get; set; }
+         public Animation Idle { get; set; }
+         public Animation Run { get; set; }
+
+         public Animation Dead { get; set; }
     }
 }

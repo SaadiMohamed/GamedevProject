@@ -14,23 +14,19 @@ namespace GamedevProject.Classes
         private static bool HasCollide(Rectangle rec1, Rectangle rec2)
         {
             return rec1.Intersects(rec2);
-
         }
 
         public static (bool hasCollide, float previousLanding) CheckCollisions(List<IGameObject> objects, Rectangle futureHitbox, IJumpable jumpable)
         {
-            bool hasCollide = false;
+            var hasCollide = false;
             var previousLanding = jumpable.Landing;
             foreach (var obj in objects.Where(x => x != null).ToList())
             {
-                Rectangle gameObjectHitbox = new Rectangle(0, 0, 0, 0);
+                var gameObjectHitbox = new Rectangle(0, 0, 0, 0);
                 if (obj is Block block)
                     gameObjectHitbox = block.BoundingBox;
-                
                 else if (obj is Monster monster)
-                    gameObjectHitbox = new Rectangle((int)monster.Position.X, (int)monster.Position.Y, monster.currentAnimation.CurrentFrame.SourceRectangle.Width, monster.currentAnimation.CurrentFrame.SourceRectangle.Height);
-
-
+                    gameObjectHitbox = monster.HitBox;
 
                 hasCollide = HasCollide(futureHitbox, gameObjectHitbox);
 
@@ -41,6 +37,19 @@ namespace GamedevProject.Classes
                 }
                 else
                     jumpable.IsFalling = false;
+
+                if (obj is Monster monster2 && futureHitbox.Bottom - 1 == gameObjectHitbox.Top && hasCollide)
+                {
+                    monster2.Speed = new Vector2(0, 0);
+                    monster2.currentAnimation = monster2.movableAnimations.Dead;
+                }
+
+                if (obj is Monster monster3 && hasCollide && monster3.Speed.X < 0)
+                {
+                    ((Hero)jumpable).Lives -= 1;
+                    monster3.Speed *= new Vector2(-1, 1);
+                }
+
                 if (hasCollide && gameObjectHitbox.Top - gameObjectHitbox.Height <= futureHitbox.Bottom + jumpable.JumpHeight && !jumpable.IsFalling)
                 {
                     jumpable.OnLanding = true;
@@ -48,9 +57,7 @@ namespace GamedevProject.Classes
                     previousLanding = gameObjectHitbox.Top - gameObjectHitbox.Height - 16;
                     break;
                 }
-
             }
-
             return (hasCollide, previousLanding);
         }
     }

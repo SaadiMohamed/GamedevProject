@@ -16,7 +16,7 @@ namespace GamedevProject.Interfaces
         SpriteEffects SpriteEffects { get; set; }
         Animation currentAnimation { get; set; }
 
-
+        Animations movableAnimations { get; set; }
        
     }
 }

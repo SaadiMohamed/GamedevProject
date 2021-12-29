@@ -11,33 +11,45 @@ using System.Text;
 
 namespace GamedevProject.Classes
 {
-    class Hero : IGameObject , IMovable, IJumpable, ICollide
+    class Hero : IGameObject, IMovable, IJumpable, ICollide
     {
         Texture2D heroTexture;
-        
+
+        private int lives = 3;
+
+        public int Lives
+        {
+            get { return lives; }
+            set
+            {
+                if (value > -1 && value < 3)
+                    lives = value;
+            }
+        }
+
+        public Animations movableAnimations { get; set; }
         public bool IsFalling { get; set; }
         public Animation currentAnimation { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Speed { get; set; }
         public IInputReader InputReader { get; set; }
         public SpriteEffects SpriteEffects { get; set; }
-        public bool HasJumped { get ; set; }
-        public float HeightDeparture { get ; set; }
-        public int JumpHeight { get ; set; }
+        public bool HasJumped { get; set; }
+        public float HeightDeparture { get; set; }
+        public int JumpHeight { get; set; }
         public Rectangle HitBox { get; set; }
-        public float Landing { get ; set ; }
-        public bool OnLanding { get; set ; }
+        public float Landing { get; set; }
+        public bool OnLanding { get; set; }
 
         private Color backgroundColor = Color.White;
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
+            movableAnimations = new Animations();
             OnLanding = false;
-            Animation runAnimation;
-            Animation idleAnimation;
             heroTexture = texture;
             InputReader = inputReader;
-            runAnimation = new Animation();
-            idleAnimation = new Animation();
+            movableAnimations.Run = new Animation();
+            movableAnimations.Idle = new Animation();
             Position = position;
             Speed = new Vector2(4, 4);
             HasJumped = false;
@@ -48,17 +60,15 @@ namespace GamedevProject.Classes
             // loop-animatie
             for (int i = 0; i < 8; i++)
             {
-                runAnimation.AddFrame(new AnimationFrame(new Rectangle(i*96, 127, 30, 33)));
+                movableAnimations.Run.AddFrame(new AnimationFrame(new Rectangle(i * 96, 127, 30, 33)));
             }
 
             //idle - animatie
             for (int i = 0; i < 5; i++)
             {
-                idleAnimation.AddFrame(new AnimationFrame(new Rectangle(i*96, 30, 30, 33)));
+                movableAnimations.Idle.AddFrame(new AnimationFrame(new Rectangle(i * 96, 30, 30, 33)));
             }
-            Animations.Idle = idleAnimation;
-            Animations.Run = runAnimation;
-            currentAnimation = Animations.Idle;
+            currentAnimation = movableAnimations.Idle;
 
         }
 
@@ -75,7 +85,7 @@ namespace GamedevProject.Classes
 
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(heroTexture, Position, currentAnimation.CurrentFrame.SourceRectangle, backgroundColor,0,new Vector2(),2,SpriteEffects,0f);
+            _spriteBatch.Draw(heroTexture, Position, currentAnimation.CurrentFrame.SourceRectangle, backgroundColor, 0, new Vector2(), 2, SpriteEffects, 0f);
         }
 
     }
