@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GamedevProject.Interfaces;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace GamedevProject.Blocks
 {
-    class Block
+    class Block: IGameObject
     {
         public Rectangle BoundingBox { get; set; }
         public bool Passable { get; set; }
@@ -25,7 +26,9 @@ namespace GamedevProject.Blocks
             spriteBatch.Draw(Texture, BoundingBox, Color);
         }
 
-
-
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

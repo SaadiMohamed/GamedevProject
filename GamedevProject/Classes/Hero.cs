@@ -26,37 +26,35 @@ namespace GamedevProject.Classes
         public int JumpHeight { get ; set; }
         public Rectangle HitBox { get; set; }
         public float Landing { get ; set ; }
+        public bool OnLanding { get; set ; }
 
         private Color backgroundColor = Color.White;
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
+            OnLanding = false;
             Animation runAnimation;
             Animation idleAnimation;
             heroTexture = texture;
-            this.InputReader = inputReader;
+            InputReader = inputReader;
             runAnimation = new Animation();
             idleAnimation = new Animation();
-            this.Position = position;
+            Position = position;
             Speed = new Vector2(4, 4);
             HasJumped = false;
-            JumpHeight = 80;
-            HitBox = new Rectangle((int) position.X,(int)position.Y,58,66);
+            JumpHeight = 88;
+            HitBox = new Rectangle((int)position.X + 5, (int)position.Y + 10, 53, 56);
             Landing = 362;
             IsFalling = false;
-            int x_coordinate = 0;
             // loop-animatie
             for (int i = 0; i < 8; i++)
             {
-                runAnimation.AddFrame(new AnimationFrame(new Rectangle(x_coordinate, 127, 30, 33)));
-                x_coordinate += 96;
+                runAnimation.AddFrame(new AnimationFrame(new Rectangle(i*96, 127, 30, 33)));
             }
 
-            x_coordinate = 0;
             //idle - animatie
             for (int i = 0; i < 5; i++)
             {
-                idleAnimation.AddFrame(new AnimationFrame(new Rectangle(x_coordinate, 30, 30, 33)));
-                x_coordinate += 96;
+                idleAnimation.AddFrame(new AnimationFrame(new Rectangle(i*96, 30, 30, 33)));
             }
             Animations.Idle = idleAnimation;
             Animations.Run = runAnimation;

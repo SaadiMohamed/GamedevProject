@@ -17,8 +17,6 @@ namespace GamedevProject
         private Hero hero;
         private Texture2D blockTexture;
         private Texture2D _backgroundTexture;
-        private List<Block> blocks;
-        int[,] gameboard;
         Level level1;
         public Game1()
         {
@@ -31,10 +29,9 @@ namespace GamedevProject
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 362));
-            blocks = new List<Block>();
+            hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 100));
             level1 = new Level(hero);
-            level1.FillBlocks(this.GraphicsDevice, this.Content);
+            level1.AddObjects(this.GraphicsDevice, this.Content);
         }
 
         protected override void LoadContent()
@@ -42,7 +39,7 @@ namespace GamedevProject
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            _heroTexture = Content.Load<Texture2D>("Santa - Sprite Sheet");
+            _heroTexture = Content.Load<Texture2D>("Santa - Sprite Sheet");           
             blockTexture = new Texture2D(GraphicsDevice, 1, 1);
             _backgroundTexture = Content.Load<Texture2D>("BG");
             blockTexture.SetData(new[] { Color.White });
@@ -56,16 +53,20 @@ namespace GamedevProject
 
             //TODO: Add your update logic here
             hero.Update(gameTime);
+            level1.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            _spriteBatch.Begin();
+
+            _spriteBatch.Begin();        
             // TODO: Add your drawing code here
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             hero.Draw(_spriteBatch);
+            _spriteBatch.Draw(blockTexture, hero.HitBox, Color.Red * 0.2f);
             level1.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);

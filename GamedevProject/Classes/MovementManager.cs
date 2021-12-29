@@ -12,7 +12,7 @@ namespace GamedevProject.Classes
 {
     class MovementManager
     {
-        public void Move(IMovable movable, List<Block> blocks)
+        public void Move(IMovable movable, List<IGameObject> objects)
         {
             ICollide collide = movable as ICollide;
             IJumpable jumpable = movable as IJumpable;
@@ -32,18 +32,24 @@ namespace GamedevProject.Classes
             else if (direction.X == 1)
                 movable.SpriteEffects = SpriteEffects.None;
 
+
             if (jumpable != null)
             {
                 collide.HitBox = new Rectangle(collide.HitBox.X, collide.HitBox.Y + jumpable.Jump(direction), collide.HitBox.Width, collide.HitBox.Height);
             }
+
+
             var distance = direction * movable.Speed;
             var futurePosition = movable.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
-            var (hasCollide, previousLanding) = CollisionManager.CheckCollisions(blocks, futureHitbox, jumpable);
+            var (hasCollide, previousLanding) = CollisionManager.CheckCollisions(objects, futureHitbox, jumpable);
 
             if (previousLanding != jumpable.Landing)
+            {
                 futurePosition = new Vector2(futurePosition.X, previousLanding);
+                futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, (int)futurePosition.Y + 10, collide.HitBox.Width, collide.HitBox.Height);
+            }
 
             if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
             {
