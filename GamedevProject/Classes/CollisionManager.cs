@@ -25,8 +25,8 @@ namespace GamedevProject.Classes
                 var gameObjectHitbox = new Rectangle(0, 0, 0, 0);
                 if (obj is Block block)
                     gameObjectHitbox = block.BoundingBox;
-                else if (obj is Monster monster)
-                    gameObjectHitbox = monster.HitBox;
+                else if (obj is ICollide )
+                    gameObjectHitbox = ((ICollide) obj).HitBox;
 
                 hasCollide = HasCollide(futureHitbox, gameObjectHitbox);
 
@@ -38,18 +38,27 @@ namespace GamedevProject.Classes
                 else
                     jumpable.IsFalling = false;
 
-                if (obj is Monster monster2 && futureHitbox.Bottom - 1 == gameObjectHitbox.Top && hasCollide)
+                if (obj is Monster monster  && hasCollide)
                 {
-                    monster2.Speed = new Vector2(0, 0);
-                    monster2.currentAnimation = monster2.movableAnimations.Dead;
+                    if(futureHitbox.Bottom -1 == gameObjectHitbox.Top)
+                    {
+                        monster.Speed = new Vector2(0, 0);
+                        monster.currentAnimation = monster.movableAnimations.Dead;
+                    }
+
+                    if (monster.Speed.X < 0)
+                    {
+                        --((Hero)jumpable).Lives;
+                        monster.Speed *= new Vector2(-1, 1);
+                    }
                 }
 
-                if (obj is Monster monster3 && hasCollide && monster3.Speed.X < 0)
+                if(obj is Present present && hasCollide)
                 {
-                    ((Hero)jumpable).Lives -= 1;
-                    monster3.Speed *= new Vector2(-1, 1);
+                    ((Hero)jumpable).Presents.Add(present);
+                    present = null;                    
                 }
-
+                                  
                 if (hasCollide && gameObjectHitbox.Top - gameObjectHitbox.Height <= futureHitbox.Bottom + jumpable.JumpHeight && !jumpable.IsFalling)
                 {
                     jumpable.OnLanding = true;

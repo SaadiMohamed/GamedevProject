@@ -12,7 +12,7 @@ using SharpDX.Direct2D1.Effects;
 
 namespace GamedevProject.Classes
 {
-    class Monster : IGameObject, IMovable
+    class Monster : IGameObject, IMovable, ICollide
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }

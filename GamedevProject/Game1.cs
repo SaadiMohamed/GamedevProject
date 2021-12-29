@@ -24,7 +24,6 @@ namespace GamedevProject
             _nextState = state;
         }
 
-        Level level1;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);

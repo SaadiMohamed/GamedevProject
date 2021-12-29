@@ -14,7 +14,7 @@ namespace GamedevProject.Classes
     class Hero : IGameObject, IMovable, IJumpable, ICollide
     {
         Texture2D heroTexture;
-
+        public List<Present> Presents { get; set; }
         private int lives = 3;
 
         public int Lives
@@ -44,6 +44,7 @@ namespace GamedevProject.Classes
         private Color backgroundColor = Color.White;
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
+            Presents = new List<Present>();
             movableAnimations = new Animations();
             OnLanding = false;
             heroTexture = texture;
