@@ -16,7 +16,7 @@ namespace GamedevProject.Classes
         Texture2D heroTexture;
         public List<Present> Presents { get; set; }
         private int lives = 3;
-
+        public bool NextLevel { set; get; } 
         public int Lives
         {
             get { return lives; }
@@ -44,6 +44,7 @@ namespace GamedevProject.Classes
         private Color backgroundColor = Color.White;
         public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
         {
+            NextLevel = false;
             Presents = new List<Present>();
             movableAnimations = new Animations();
             OnLanding = false;

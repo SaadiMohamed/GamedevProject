@@ -53,9 +53,16 @@ namespace GamedevProject.Classes
                     }
                 }
 
+                if(hasCollide && obj is Sleigh)
+                {
+                    ((Hero)jumpable).NextLevel = true;
+                    Debug.WriteLine(((Hero)jumpable).NextLevel);
+                    break;
+                }
                 if(obj is Present present && hasCollide)
                 {
                     ((Hero)jumpable).Presents.Add(present);
+                    present.HitBox = new Rectangle(-100,-100,-100,-100);
                     present = null;                    
                 }
                                   

@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace GamedevProject.Classes
 {
-    internal class Level
+    internal class Level1
     {
-        private Hero _hero;
+        public Hero Hero {set; get;}
         private Monster _monster;
         private List<IGameObject> _gameObjects;
         private readonly int[,] gameboard;
@@ -19,8 +19,9 @@ namespace GamedevProject.Classes
         private MovementManager _movementManager;
         private Texture2D _block;
         private Texture2D heart;
-        private Present present;
-        public Level()
+        private List<Present> presents;
+        private Sleigh sleigh;
+        public Level1()
         {
 
             _gameObjects = new List<IGameObject>();
@@ -29,31 +30,36 @@ namespace GamedevProject.Classes
  {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,1,2,2,2,2,2,3,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,1,2,3,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,1,2,2,2,2,3,0,0,0,0},
+                { 0,0,0,0,0,0,0,1,2,2,3,0,0,0,0,0},
+                {0,0, 0,0,0,0,1,2,2,2,2,3,0,0,0,0},
                 { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
  };
         }
 
         public void Start()
         {
-            _movementManager.Move(_hero, _gameObjects);
+            _movementManager.Move(Hero, _gameObjects);
         }
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
+            sleigh = new Sleigh(content);
             _block = new Texture2D(graphicsDevice, 1, 1);
             _block.SetData(new[] { Color.White });
             _heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
-            _hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 100));
+            Hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 200));
             heart = content.Load<Texture2D>("lives");
             _monster = new Monster(content);
-            present = new Present(content, new Vector2(600, 150));
+            presents = new List<Present> {
+                new Present(content, new Vector2(600, 150)),
+                new Present(content, new Vector2(300, 50)),
+                new Present(content, new Vector2(750, 400))};
+
             for (int i = 0; i < gameboard.GetLength(0); i++)
             {
                 for (int j = 0; j < gameboard.GetLength(1); j++)
@@ -63,21 +69,23 @@ namespace GamedevProject.Classes
                 }
             }
             _gameObjects.Add(_monster);
-            _gameObjects.Add(present);
+            _gameObjects.AddRange(presents);
+            _gameObjects.Add(sleigh);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _hero.Draw(spriteBatch);
-            spriteBatch.Draw(_block, _hero.HitBox, Color.Red * 0.2f);
-            for (var i = 0; i < _hero.Lives; i++)
+            Hero.Draw(spriteBatch);
+
+            spriteBatch.Draw(_block, Hero.HitBox, Color.Red * 0.2f);
+            for (var i = 0; i < Hero.Lives; i++)
             {
                 spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
             }
-            for (var i = 0; i < _hero.Presents.Count; i++)
+            for (var i = 0; i < Hero.Presents.Count; i++)
             {
-                _hero.Presents[i].Position = new Vector2(800 - (i * 30), 0);
-                _hero.Presents[i].Draw(spriteBatch);
+                Hero.Presents[i].Position = new Vector2(800 - ((i + 1) * 30), 0);
+                Hero.Presents[i].Draw(spriteBatch);
             }
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
         }
@@ -85,8 +93,7 @@ namespace GamedevProject.Classes
         public void Update(GameTime gameTime)
         {
             _monster.Update(gameTime);
-            _hero.Update(gameTime);
-            present.Update(gameTime);
+            Hero.Update(gameTime);
         }
     }
 }
