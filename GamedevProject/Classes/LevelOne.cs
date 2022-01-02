@@ -44,7 +44,7 @@ namespace GamedevProject.Classes
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
-            sleigh = new Sleigh(content);
+            sleigh = new Sleigh(content, new Rectangle(150, 32, 50, 50));
             _block = new Texture2D(graphicsDevice, 1, 1);
             _block.SetData(new[] { Color.White });
             _heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");

@@ -12,19 +12,19 @@ namespace GamedevProject.Classes
     {
         Texture2D texture;
         public Rectangle HitBox { get; set; }
-        public Sleigh(ContentManager content)
+        public Sleigh(ContentManager content , Rectangle position)
         {
             texture = content.Load<Texture2D>("SantaSleigh");
-            HitBox = new Rectangle(150, 32, 50, 50);
+            HitBox = position;
         }
         public void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(texture, new Rectangle(150, 32, 50, 50), Color.White);
+            _spriteBatch.Draw(texture, HitBox, Color.White);
         }
 
         public void Update(GameTime gameTime)
         {
-            HitBox = new Rectangle(150, 32, 50, 50);
+            HitBox = HitBox;
         }
     }
 }

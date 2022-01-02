@@ -33,19 +33,19 @@ namespace GamedevProject.Classes
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 1,2,2,2,2,2,2,3,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,1,2,2,2,2,3,0,0},
                 { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
  };
         }
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
-            sleigh = new Sleigh(content);
+            sleigh = new Sleigh(content, new Rectangle(715, 382, 50, 50));
             _block = new Texture2D(graphicsDevice, 1, 1);
             _block.SetData(new[] { Color.White });
             heart = content.Load<Texture2D>("lives");
@@ -64,7 +64,7 @@ namespace GamedevProject.Classes
             }
             //_gameObjects.Add(_monster);
             //_gameObjects.AddRange(presents);
-            //_gameObjects.Add(sleigh);
+            _gameObjects.Add(sleigh);
         }
 
         public void Draw(SpriteBatch spriteBatch)
