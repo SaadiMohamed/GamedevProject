@@ -10,13 +10,15 @@ namespace GamedevProject.States
 {
     public class GameState : State
     {
-        private Level1 level1;
-
+        private LevelOne level1;
+        private LevelTwo level2;
 
         public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
-            level1 = new Level1();
+            level1 = new LevelOne();
             level1.AddObjects(graphicsDevice, content);
+            level2 = new LevelTwo();
+            level2.AddObjects(graphicsDevice, content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -26,6 +28,8 @@ namespace GamedevProject.States
                 level1.Draw(spriteBatch);
                 level1.Start();
             }
+            else
+                level2.Draw(spriteBatch);
 
         }
 

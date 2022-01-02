@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace GamedevProject.Classes
 {
-    internal class Level1
+    internal class LevelOne
     {
         public Hero Hero {set; get;}
         private Monster _monster;
@@ -21,7 +21,7 @@ namespace GamedevProject.Classes
         private Texture2D heart;
         private List<Present> presents;
         private Sleigh sleigh;
-        public Level1()
+        public LevelOne()
         {
 
             _gameObjects = new List<IGameObject>();
