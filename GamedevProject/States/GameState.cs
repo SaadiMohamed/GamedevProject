@@ -12,6 +12,7 @@ namespace GamedevProject.States
     {
         private LevelOne level1;
         private LevelTwo level2;
+        public bool nextState = false;
 
         public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
@@ -33,11 +34,15 @@ namespace GamedevProject.States
 
         }
 
-
         public override void Update(GameTime gameTime)
         {
             if (!level1.Hero.NextLevel)
                 level1.Update(gameTime);
+
+            if ( level1.Hero.Lives < 1)
+            {
+                _game.ChangeState(new GameOverState(_game, _graphicsDevice, _content));
+            }
         }
     }
 }
