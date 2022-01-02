@@ -37,7 +37,13 @@ namespace GamedevProject.States
         public override void Update(GameTime gameTime)
         {
             if (!level1.Hero.NextLevel)
+            {
                 level1.Update(gameTime);
+            }
+            else
+            {
+                level2.Update(gameTime);
+            }
 
             if ( level1.Hero.Lives < 1)
             {
