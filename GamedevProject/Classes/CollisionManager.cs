@@ -25,8 +25,8 @@ namespace GamedevProject.Classes
                 var gameObjectHitbox = new Rectangle(0, 0, 0, 0);
                 if (obj is Block block)
                     gameObjectHitbox = block.BoundingBox;
-                else if (obj is ICollide )
-                    gameObjectHitbox = ((ICollide) obj).HitBox;
+                else if (obj is ICollide collide)
+                    gameObjectHitbox = collide.HitBox;
 
                 hasCollide = HasCollide(futureHitbox, gameObjectHitbox);
 
@@ -38,34 +38,33 @@ namespace GamedevProject.Classes
                 else
                     jumpable.IsFalling = false;
 
-                if (obj is Monster monster  && hasCollide)
+                if (obj is Monster monster && hasCollide)
                 {
-                    if(futureHitbox.Bottom -1 == gameObjectHitbox.Top)
+                    if (futureHitbox.Bottom - 1 >= gameObjectHitbox.Top && monster is Slayer)
                     {
                         monster.Speed = new Vector2(0, 0);
                         monster.currentAnimation = monster.movableAnimations.Dead;
                     }
-
-                    if (monster.Speed.X < 0)
+                    else
                     {
                         --((Hero)jumpable).Lives;
                         monster.Speed *= new Vector2(-1, 1);
                     }
+
                 }
 
-                if(hasCollide && obj is Sleigh)
+                if (hasCollide && obj is Sleigh)
                 {
                     ((Hero)jumpable).NextLevel = true;
-                    Debug.WriteLine(((Hero)jumpable).NextLevel);
                     break;
                 }
-                if(obj is Present present && hasCollide)
+                if (obj is Present present && hasCollide)
                 {
+                    present.Position = new Vector2(800 - ((((Hero)jumpable).Presents.Count + 1) * 30), 0);
                     ((Hero)jumpable).Presents.Add(present);
-                    present.HitBox = new Rectangle(-100,-100,-100,-100);
-                    present = null;                    
+                    present.HitBox = new Rectangle();
                 }
-                                  
+
                 if (hasCollide && gameObjectHitbox.Top - gameObjectHitbox.Height <= futureHitbox.Bottom + jumpable.JumpHeight && !jumpable.IsFalling)
                 {
                     jumpable.OnLanding = true;

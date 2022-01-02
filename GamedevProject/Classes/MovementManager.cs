@@ -65,7 +65,6 @@ namespace GamedevProject.Classes
             if (hasCollide)
                 jumpable.Landing = previousLanding;
 
-
         }
     }
 

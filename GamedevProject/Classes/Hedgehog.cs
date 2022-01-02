@@ -5,14 +5,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SharpDX.Direct2D1.Effects;
 
 namespace GamedevProject.Classes
 {
-    class Monster : IGameObject, IMovable, ICollide
+    internal class Hedgehog : Monster
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }
@@ -25,26 +23,22 @@ namespace GamedevProject.Classes
         public Rectangle HitBox { get; set; }
 
 
-        public Monster(ContentManager content)
+        public Hedgehog(ContentManager content)
         {
             movableAnimations = new Animations();
             movableAnimations.Run = new Animation();
             movableAnimations.Dead = new Animation();
-            monsterTexture = content.Load<Texture2D>("Shardsoul Slayer Sprite Sheet"); 
-            Position = new Vector2(600, 350);
+            monsterTexture = content.Load<Texture2D>("Hedgehog Sprite Sheet");
+            Position = new Vector2(550, 355);
 
             Speed = new Vector2(2, 0);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
-                movableAnimations.Run.AddFrame(new AnimationFrame(new Rectangle(i * 64, 88, 48, 40)));
+                movableAnimations.Run.AddFrame(new AnimationFrame(new Rectangle(i * 32, 20, 30, 20)));
 
             }
-            for (int i = 0; i < 7; i++)
-            {
-                movableAnimations.Dead.AddFrame(new AnimationFrame(new Rectangle(i * 64, 280, 60, 40)));
-            }
 
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y + 5, 95, 75);
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y , 30, 20);
             currentAnimation = new Animation();
             currentAnimation = movableAnimations.Run;
         }
@@ -56,28 +50,22 @@ namespace GamedevProject.Classes
 
         public void Update(GameTime gameTime)
         {
-          
-            if (Speed.X < 0)
+            int rotate = 10;
+            if (Speed.X < 0) 
                 SpriteEffects = SpriteEffects.FlipHorizontally;
-            else
+            
+            else { 
                 SpriteEffects = SpriteEffects.None;
-            if (HitBox.X >= (800 - 90) || HitBox.X <= 599)
+                rotate += 3;
+            }
+            
+            if (HitBox.X >= (650) || HitBox.X <= 400)
             {
                 Speed *= new Vector2(-1, 1);
             }
             Position += Speed;
-         
-            if (currentAnimation == movableAnimations.Dead)
-                HitBox = new Rectangle(HitBox.X, HitBox.Y + 1, HitBox.Width, HitBox.Height);
-            else
-                HitBox = new Rectangle((int)Position.X, (int)Position.Y + 5, 95, 75);
+            HitBox = new Rectangle((int)Position.X + rotate, (int)Position.Y, 33, 20);
 
-            if (currentAnimation.CurrentFrame == movableAnimations.Dead.frames.Last())
-            {
-                currentAnimation = new Animation();
-                currentAnimation.AddFrame(movableAnimations.Dead.frames.Last());
-                HitBox = new Rectangle(0, 0, 0, 0);
-            }
             currentAnimation.Update(gameTime);
 
         }

@@ -12,7 +12,7 @@ namespace GamedevProject.Classes
     internal class LevelOne
     {
         public Hero Hero {set; get;}
-        private Monster _monster;
+        private Slayer _monster;
         private List<IGameObject> _gameObjects;
         private readonly int[,] gameboard;
         private Texture2D _heroTexture;
@@ -50,7 +50,7 @@ namespace GamedevProject.Classes
             _heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
             Hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 200));
             heart = content.Load<Texture2D>("lives");
-            _monster = new Monster(content);
+            _monster = new Slayer(content);
             presents = new List<Present> {
                 new Present(content, new Vector2(600, 150)),
                 new Present(content, new Vector2(300, 50)),
@@ -73,7 +73,6 @@ namespace GamedevProject.Classes
         {
             Hero.Draw(spriteBatch);
 
-            spriteBatch.Draw(_block, Hero.HitBox, Color.Red * 0.2f);
             for (var i = 0; i < Hero.Lives; i++)
             {
                 spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
