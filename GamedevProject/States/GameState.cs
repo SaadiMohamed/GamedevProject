@@ -18,19 +18,16 @@ namespace GamedevProject.States
         {
             level1 = new LevelOne();
             level1.AddObjects(graphicsDevice, content);
-            level2 = new LevelTwo();
+            level2 = new LevelTwo(level1.Hero);
             level2.AddObjects(graphicsDevice, content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (!level1.Hero.NextLevel)
-            {
                 level1.Draw(spriteBatch);
-                level1.Start();
-            }
             else
-                level2.Draw(spriteBatch);
+                level2.Draw(spriteBatch); 
 
         }
 

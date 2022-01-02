@@ -41,10 +41,6 @@ namespace GamedevProject.Classes
  };
         }
 
-        public void Start()
-        {
-            _movementManager.Move(Hero, _gameObjects);
-        }
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
@@ -88,6 +84,7 @@ namespace GamedevProject.Classes
                 Hero.Presents[i].Draw(spriteBatch);
             }
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
+            _movementManager.Move(Hero, _gameObjects);
         }
 
         public void Update(GameTime gameTime)

@@ -23,10 +23,11 @@ namespace GamedevProject.Classes
         private Sleigh sleigh;
         private Texture2D _heroTexture;
 
-        public LevelTwo()
+        public LevelTwo(Hero hero)
         {
             _gameObjects = new List<IGameObject>();
             _movementManager = new MovementManager();
+            Hero = hero;
             gameboard = new[,]
  {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -42,18 +43,11 @@ namespace GamedevProject.Classes
  };
         }
 
-        public void Start()
-        {
-            _movementManager.Move(Hero, _gameObjects);
-        }
-
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
             sleigh = new Sleigh(content);
             _block = new Texture2D(graphicsDevice, 1, 1);
             _block.SetData(new[] { Color.White });
-            _heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
-            Hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 200));
             heart = content.Load<Texture2D>("lives");
             _monster = new Monster(content);
             presents = new List<Present> {
@@ -88,6 +82,7 @@ namespace GamedevProject.Classes
                 Hero.Presents[i].Draw(spriteBatch);
             }
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
+            _movementManager.Move(Hero, _gameObjects);
         }
 
         public void Update(GameTime gameTime)
