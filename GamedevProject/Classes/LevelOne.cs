@@ -72,10 +72,9 @@ namespace GamedevProject.Classes
         public void Draw(SpriteBatch spriteBatch)
         {
             Hero.Draw(spriteBatch);
-
             for (var i = 0; i < Hero.Lives; i++)
             {
-                spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
+                spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White );
             }
             for (var i = 0; i < Hero.Presents.Count; i++)
             {

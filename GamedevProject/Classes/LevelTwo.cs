@@ -20,13 +20,13 @@ namespace GamedevProject.Classes
         private Texture2D _block;
         private Texture2D heart;
         private List<Present> presents;
-        private Sleigh sleigh;
 
         public LevelTwo(Hero hero)
         {
             _gameObjects = new List<IGameObject>();
             _movementManager = new MovementManager();
             Hero = hero;
+            Hero.NextLevel = false;
             gameboard = new[,]
  {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -37,14 +37,13 @@ namespace GamedevProject.Classes
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,0,1,2,2,2,2,3,0,0},
+                { 0,0,0,1,0,0,1,2,2,2,2,2,2,3,0,0},
                 { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
  };
         }
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
-            sleigh = new Sleigh(content, new Rectangle(715, 382, 50, 50));
             _block = new Texture2D(graphicsDevice, 1, 1);
             _block.SetData(new[] { Color.White });
             heart = content.Load<Texture2D>("lives");
@@ -52,7 +51,7 @@ namespace GamedevProject.Classes
             presents = new List<Present> {
                 new Present(content, new Vector2(300, 100)),
                 new Present(content, new Vector2(600, 350)),
-                new Present(content, new Vector2(200, 400))
+                new Present(content, new Vector2(100, 400))
             };
 
             for (int i = 0; i < gameboard.GetLength(0); i++)
@@ -65,7 +64,10 @@ namespace GamedevProject.Classes
             }
             _gameObjects.Add(hedgehog);
             _gameObjects.AddRange(presents);
-            _gameObjects.Add(sleigh);
+            _gameObjects.Add(new Sleigh(content, new Rectangle(715, 382, 50, 50)));
+            _gameObjects.Add(new Spike(content, new Vector2(200, 400)));
+            _gameObjects.Add(new Spike(content, new Vector2(230, 400)));
+            _gameObjects.Add(new Spike(content, new Vector2(260, 400)));
         }
 
         public void Draw(SpriteBatch spriteBatch)

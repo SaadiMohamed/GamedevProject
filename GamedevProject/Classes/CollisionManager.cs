@@ -38,24 +38,35 @@ namespace GamedevProject.Classes
                 else
                     jumpable.IsFalling = false;
 
-                if (obj is Monster monster && hasCollide)
+                if (obj is Enemies monster && hasCollide)
                 {
-                    if (futureHitbox.Bottom - 1 >= gameObjectHitbox.Top && monster is Slayer)
+                    if (futureHitbox.Bottom - 1 == gameObjectHitbox.Top && monster is Slayer)
                     {
                         monster.Speed = new Vector2(0, 0);
                         monster.currentAnimation = monster.movableAnimations.Dead;
                     }
-                    else
+
+                    if (monster.Speed.X < 0 && monster is Slayer )
                     {
                         --((Hero)jumpable).Lives;
                         monster.Speed *= new Vector2(-1, 1);
                     }
 
+                    if (monster is Hedgehog)
+                    {
+                        --((Hero)jumpable).Lives;
+                        monster.Speed *= new Vector2(-1, 1);
+                    }
+                    if(monster is Spike)
+                    {
+                        --((Hero)jumpable).Lives;
+                    }
                 }
 
                 if (hasCollide && obj is Sleigh)
                 {
                     ((Hero)jumpable).NextLevel = true;
+                    Debug.WriteLine(((Hero)jumpable).NextLevel);
                     break;
                 }
                 if (obj is Present present && hasCollide)

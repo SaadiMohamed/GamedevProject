@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GamedevProject.Interfaces
 {
-    interface Monster : IGameObject, IMovable, ICollide
+    interface Enemies : IGameObject, IMovable, ICollide
     {
     }
 }

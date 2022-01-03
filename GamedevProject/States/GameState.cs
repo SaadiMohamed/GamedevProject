@@ -12,7 +12,7 @@ namespace GamedevProject.States
     {
         private LevelOne level1;
         private LevelTwo level2;
-        public bool nextState = false;
+        private int activeLevel = 1;
 
         public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
@@ -24,7 +24,7 @@ namespace GamedevProject.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (!level1.Hero.NextLevel)
+            if (activeLevel == 1)
                 level1.Draw(spriteBatch);
             else
                 level2.Draw(spriteBatch); 
@@ -33,11 +33,17 @@ namespace GamedevProject.States
 
         public override void Update(GameTime gameTime)
         {
-            if (!level1.Hero.NextLevel)
+            if(level1.Hero.NextLevel && activeLevel == 1)
+            {
+                activeLevel = 2;
+                level1.Hero.NextLevel = false;
+            }
+                
+            if (activeLevel == 1)
             {
                 level1.Update(gameTime);
             }
-            else
+            else 
             {
                 level2.Update(gameTime);
             }
@@ -46,6 +52,12 @@ namespace GamedevProject.States
             {
                 _game.ChangeState(new GameOverState(_game, _graphicsDevice, _content));
             }
+            if(level2.Hero.Presents.Count > 3)
+            {
+                if(level2.Hero.NextLevel)
+                    _game.ChangeState(new EndState(_game, _graphicsDevice, _content));
+            }
+            level2.Hero.NextLevel = false;    
         }
     }
 }

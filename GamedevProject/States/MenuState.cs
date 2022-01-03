@@ -13,11 +13,12 @@ namespace GamedevProject.States
     {
 
         private List<Component> _components;
-
+        private ContentManager content;
         public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
             var buttonTexture = _content.Load<Texture2D>(@"Controls\Button");
             var buttonFont = _content.Load<SpriteFont>(@"Fonts\Font");
+            this.content = content;
             var newGameButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(300, 200),
@@ -58,6 +59,10 @@ namespace GamedevProject.States
             {
                 component.Draw(gameTime, spriteBatch);
             }
+            var arrows = content.Load<Texture2D>("arrows");
+            var spacebar = content.Load<Texture2D>("spacebar");
+            spriteBatch.Draw(arrows,new Rectangle(600,300,200,100), Color.White);
+            spriteBatch.Draw(spacebar, new Rectangle(600, 420, 200,50 ), Color.White);
         }
 
         public override void Update(GameTime gameTime)
