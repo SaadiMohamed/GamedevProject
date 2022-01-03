@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using GamedevProject.Classes.Enemies;
 
 namespace GamedevProject.Classes
 {
@@ -38,7 +39,7 @@ namespace GamedevProject.Classes
                 else
                     jumpable.IsFalling = false;
 
-                if (obj is Enemies monster && hasCollide)
+                if (obj is IEnemies monster && hasCollide)
                 {
                     if (futureHitbox.Bottom - 1 == gameObjectHitbox.Top && monster is Slayer)
                     {

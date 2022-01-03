@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using SharpDX.Direct2D1.Effects;
 
-namespace GamedevProject.Classes
+namespace GamedevProject.Classes.Enemies
 {
-    class Slayer: Enemies, IMovable
+    class Slayer: IEnemies, IMovable
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }

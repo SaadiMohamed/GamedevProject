@@ -1,4 +1,5 @@
 ﻿using GamedevProject.Blocks;
+using GamedevProject.Classes.Enemies;
 using GamedevProject.Input;
 using GamedevProject.Interfaces;
 using Microsoft.Xna.Framework;
@@ -8,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GamedevProject.Classes
+namespace GamedevProject.Classes.Level
 {
     internal class LevelTwo
     {
@@ -36,7 +37,7 @@ namespace GamedevProject.Classes
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                { 0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0},
+                { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,1,0,0,1,2,2,2,2,2,2,3,0,0},
                 { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
  };

@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GamedevProject.Classes
+namespace GamedevProject.Classes.Enemies
 {
-    internal class Hedgehog : Enemies, IMovable
+    internal class Hedgehog : IEnemies, IMovable
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }

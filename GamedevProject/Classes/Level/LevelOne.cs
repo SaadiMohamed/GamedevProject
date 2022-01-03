@@ -1,4 +1,5 @@
 ﻿using GamedevProject.Blocks;
+using GamedevProject.Classes.Enemies;
 using GamedevProject.Input;
 using GamedevProject.Interfaces;
 using Microsoft.Xna.Framework;
@@ -7,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GamedevProject.Classes
+namespace GamedevProject.Classes.Level
 {
     internal class LevelOne
     {

@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GamedevProject.Classes
+namespace GamedevProject.Classes.Enemies
 {
-    internal class Spike : Enemies
+    internal class Spike : IEnemies
     {
         Texture2D texture;
         public Vector2 Position { get; set; }
