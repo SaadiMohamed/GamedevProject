@@ -14,6 +14,18 @@ namespace GamedevProject.Classes
 {
     class Hero : IGameObject, IMovable, IJumpable, ICollide , IUpdate
     {
+            
+        private static Hero instance;
+
+        public static Hero Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Hero();
+                return instance;
+            }
+        }
         Texture2D heroTexture;
         public List<Present> Presents { get; set; }
         private int lives = 3;
@@ -43,7 +55,7 @@ namespace GamedevProject.Classes
         public bool OnLanding { get; set; }
 
         private Color backgroundColor = Color.White;
-        public Hero(ContentManager content, IInputReader inputReader, Vector2 position)
+        public void Init(ContentManager content, IInputReader inputReader, Vector2 position)
         {
             NextLevel = false;
             Presents = new List<Present>();

@@ -14,25 +14,25 @@ namespace GamedevProject.Classes
 
     static class MovementManager
     {
-        static public void Move(IMovable movable, List<IGameObject> objects)
+        static public void Move(List<IGameObject> objects)
         {
-            ICollide collide = movable as ICollide;
-            IJumpable jumpable = movable as IJumpable;
-            var direction = movable.InputReader.ReadInput();
-            if (movable.InputReader.IsDestinationInput)
+            ICollide collide = Hero.Instance as ICollide;
+            IJumpable jumpable = Hero.Instance as IJumpable;
+            var direction = Hero.Instance.InputReader.ReadInput();
+            if (Hero.Instance.InputReader.IsDestinationInput)
             {
-                direction -= movable.Position;
+                direction -= Hero.Instance.Position;
                 direction.Normalize();
             }
 
             //soorten animations idle en lopen
-            movable.currentAnimation = direction.X == 0 ? movable.movableAnimations.Idle : movable.movableAnimations.Run;
+            Hero.Instance.currentAnimation = direction.X == 0 ? Hero.Instance.movableAnimations.Idle : Hero.Instance.movableAnimations.Run;
 
             //direction.Y == 1
             if (direction.X == -1)
-                movable.SpriteEffects = SpriteEffects.FlipHorizontally;
+                Hero.Instance.SpriteEffects = SpriteEffects.FlipHorizontally;
             else if (direction.X == 1)
-                movable.SpriteEffects = SpriteEffects.None;
+                Hero.Instance.SpriteEffects = SpriteEffects.None;
 
 
             if (jumpable != null)
@@ -41,8 +41,8 @@ namespace GamedevProject.Classes
             }
 
 
-            var distance = direction * movable.Speed;
-            var futurePosition = movable.Position + distance;
+            var distance = direction * Hero.Instance.Speed;
+            var futurePosition = Hero.Instance.Position + distance;
             var futureHitbox = new Rectangle(collide.HitBox.X + (int)distance.X, collide.HitBox.Y + (int)distance.Y, collide.HitBox.Width, collide.HitBox.Height);
 
             var (hasCollide, previousLanding) = CollisionManager.CheckCollisions(objects, futureHitbox, jumpable);
@@ -55,9 +55,9 @@ namespace GamedevProject.Classes
 
             if (futurePosition.X <= (800 - 60) && futurePosition.X >= 0 && futurePosition.Y <= 480 - 66 && futurePosition.Y > 0)
             {
-                if (!hasCollide || movable.Position.Y <= jumpable.Landing)
+                if (!hasCollide || Hero.Instance.Position.Y <= jumpable.Landing)
                 {
-                    movable.Position = futurePosition;
+                    Hero.Instance.Position = futurePosition;
                     collide.HitBox = futureHitbox;
                     jumpable.Landing = 362;
                 }

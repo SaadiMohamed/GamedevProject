@@ -16,11 +16,11 @@ namespace GamedevProject.States
         private LevelOne level1;
         private LevelTwo level2;
         private int activeLevel = 1;
-        private Hero hero;
+        private Hero hero = Hero.Instance;
 
         public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
-            hero = new Hero(content, new KeyboardReader(), new Vector2(200, 200));
+            hero.Init(content, new KeyboardReader(), new Vector2(200, 200));
             level1 = new LevelOne(hero);
             level1.AddObjects(graphicsDevice, content);
             level2 = new LevelTwo(hero);

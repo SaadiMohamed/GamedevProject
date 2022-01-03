@@ -1,5 +1,6 @@
 ﻿using GamedevProject.Classes;
 using GamedevProject.Controls;
+using GamedevProject.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +32,7 @@ namespace GamedevProject.States
             {
                 continueButton
             };
+            Hero.Instance.Init(content, new KeyboardReader(), new Vector2(200,200));
         }
 
 

@@ -49,31 +49,30 @@ namespace GamedevProject.Classes
 
                     if (monster.Speed.X < 0 && monster is Slayer )
                     {
-                        --((Hero)jumpable).Lives;
+                        --Hero.Instance.Lives;
                         monster.Speed *= new Vector2(-1, 1);
                     }
 
                     if (monster is Hedgehog)
                     {
-                        --((Hero)jumpable).Lives;
+                        --Hero.Instance.Lives;
                         monster.Speed *= new Vector2(-1, 1);
                     }
                     if(monster is Spike)
                     {
-                        --((Hero)jumpable).Lives;
+                        --Hero.Instance.Lives;
                     }
                 }
 
                 if (hasCollide && obj is Sleigh)
                 {
-                    ((Hero)jumpable).NextLevel = true;
-                    Debug.WriteLine(((Hero)jumpable).NextLevel);
+                    Hero.Instance.NextLevel = true;
                     break;
                 }
                 if (obj is Present present && hasCollide)
                 {
-                    present.Position = new Vector2(800 - ((((Hero)jumpable).Presents.Count + 1) * 30), 0);
-                    ((Hero)jumpable).Presents.Add(present);
+                    present.Position = new Vector2(800 - ((Hero.Instance.Presents.Count + 1) * 30), 0);
+                    Hero.Instance.Presents.Add(present);
                     present.HitBox = new Rectangle();
                 }
 

@@ -76,7 +76,7 @@ namespace GamedevProject.Classes.Level
                 Hero.Presents[i].Draw(spriteBatch);
             }
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
-            MovementManager.Move(Hero, _gameObjects);
+            MovementManager.Move(_gameObjects);
         }
 
         public void Update(GameTime gameTime)
