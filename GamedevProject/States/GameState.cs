@@ -10,6 +10,7 @@ using GamedevProject.Input;
 
 namespace GamedevProject.States
 {
+    //state pattern
     public class GameState : State
     {
         private LevelOne level1;

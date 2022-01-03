@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GamedevProject.States
 {
+    //state pattern
     public class MenuState : State
     {
 

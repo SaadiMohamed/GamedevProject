@@ -9,6 +9,7 @@ using System.Text;
 
 namespace GamedevProject.States
 {
+    //State pattern
     class GameOverState : State
     {
         private List<Component> _components;

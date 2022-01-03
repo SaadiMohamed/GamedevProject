@@ -7,6 +7,7 @@ using System.Text;
 
 namespace GamedevProject.States
 {
+    // State pattern
     public abstract class State
     {
         protected ContentManager _content;
