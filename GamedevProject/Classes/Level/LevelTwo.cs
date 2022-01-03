@@ -11,23 +11,13 @@ using System.Text;
 
 namespace GamedevProject.Classes.Level
 {
-    internal class LevelTwo: IUpdate
+    internal class LevelTwo : IUpdate
     {
         public Hero Hero { set; get; }
         private Hedgehog hedgehog;
         private List<IGameObject> _gameObjects;
-        private readonly int[,] gameboard;
-        private Texture2D _block;
-        private Texture2D heart;
-        private List<Present> presents;
-
-        public LevelTwo(Hero hero)
+        private readonly int[,] gameboard = new[,]
         {
-            _gameObjects = new List<IGameObject>();
-            Hero = hero;
-            Hero.NextLevel = false;
-            gameboard = new[,]
- {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -38,13 +28,19 @@ namespace GamedevProject.Classes.Level
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,1,0,0,1,2,2,2,2,2,2,3,0,0},
                 { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
- };
+        };
+        private Texture2D heart;
+        private List<Present> presents;
+
+        //DIP
+        public LevelTwo(Hero hero)
+        {
+            Hero = hero;
         }
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
-            _block = new Texture2D(graphicsDevice, 1, 1);
-            _block.SetData(new[] { Color.White });
+            _gameObjects = new List<IGameObject>();
             heart = content.Load<Texture2D>("lives");
             hedgehog = new Hedgehog(content);
             presents = new List<Present> {

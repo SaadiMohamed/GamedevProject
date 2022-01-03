@@ -2,6 +2,7 @@
 using GamedevProject.Input;
 using GamedevProject.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -42,13 +43,13 @@ namespace GamedevProject.Classes
         public bool OnLanding { get; set; }
 
         private Color backgroundColor = Color.White;
-        public Hero(Texture2D texture, IInputReader inputReader, Vector2 position)
+        public Hero(ContentManager content, IInputReader inputReader, Vector2 position)
         {
             NextLevel = false;
             Presents = new List<Present>();
             movableAnimations = new Animations();
             OnLanding = false;
-            heroTexture = texture;
+            heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
             InputReader = inputReader;
             movableAnimations.Run = new Animation();
             movableAnimations.Idle = new Animation();

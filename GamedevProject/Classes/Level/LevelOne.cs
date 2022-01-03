@@ -12,21 +12,11 @@ namespace GamedevProject.Classes.Level
 {
     internal class LevelOne : IUpdate
     {
-        public Hero Hero {set; get;}
+        public Hero Hero { set; get; }
         private Slayer _monster;
         private List<IGameObject> _gameObjects;
-        private readonly int[,] gameboard;
-        private Texture2D _heroTexture;
-        private Texture2D _block;
-        private Texture2D heart;
-        private List<Present> presents;
-        private Sleigh sleigh;
-        public LevelOne()
+        private readonly int[,] gameboard = new[,]
         {
-
-            _gameObjects = new List<IGameObject>();
-            gameboard = new[,]
- {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 { 0,0,0,1,2,2,2,2,2,3,0,0,0,0,0,0},
@@ -37,17 +27,22 @@ namespace GamedevProject.Classes.Level
                 { 0,0,0,0,0,0,0,1,2,2,3,0,0,0,0,0},
                 {0,0, 0,0,0,0,1,2,2,2,2,3,0,0,0,0},
                 { 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
- };
+        };
+        private Texture2D heart;
+        private List<Present> presents;
+        private Sleigh sleigh;
+
+        //DIP
+        public LevelOne(Hero hero)
+        {
+            Hero = hero;
         }
 
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
+            _gameObjects = new List<IGameObject>();
             sleigh = new Sleigh(content, new Rectangle(150, 32, 50, 50));
-            _block = new Texture2D(graphicsDevice, 1, 1);
-            _block.SetData(new[] { Color.White });
-            _heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
-            Hero = new Hero(_heroTexture, new KeyboardReader(), new Vector2(200, 200));
             heart = content.Load<Texture2D>("lives");
             _monster = new Slayer(content);
             presents = new List<Present> {
@@ -73,7 +68,7 @@ namespace GamedevProject.Classes.Level
             Hero.Draw(spriteBatch);
             for (var i = 0; i < Hero.Lives; i++)
             {
-                spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White );
+                spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
             }
             for (var i = 0; i < Hero.Presents.Count; i++)
             {

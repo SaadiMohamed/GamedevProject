@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GamedevProject.Classes.Level;
+using GamedevProject.Input;
 
 namespace GamedevProject.States
 {
@@ -14,12 +15,14 @@ namespace GamedevProject.States
         private LevelOne level1;
         private LevelTwo level2;
         private int activeLevel = 1;
+        private Hero hero;
 
         public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
-            level1 = new LevelOne();
+            hero = new Hero(content, new KeyboardReader(), new Vector2(200, 200));
+            level1 = new LevelOne(hero);
             level1.AddObjects(graphicsDevice, content);
-            level2 = new LevelTwo(level1.Hero);
+            level2 = new LevelTwo(hero);
             level2.AddObjects(graphicsDevice, content);
         }
 
