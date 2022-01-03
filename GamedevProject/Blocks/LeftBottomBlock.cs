@@ -7,6 +7,7 @@ using System.Text;
 
 namespace GamedevProject.Blocks
 {
+    //SRP
     class LeftBottomBlock : Block
     {
         public LeftBottomBlock(int x, int y, GraphicsDevice graphics, ContentManager content) : base(x, y, graphics)

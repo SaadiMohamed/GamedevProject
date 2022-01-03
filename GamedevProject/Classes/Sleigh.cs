@@ -23,10 +23,5 @@ namespace GamedevProject.Classes
         {
             _spriteBatch.Draw(texture, HitBox, Color.White);
         }
-
-        public void Update(GameTime gameTime)
-        {
-            HitBox = HitBox;
-        }
     }
 }

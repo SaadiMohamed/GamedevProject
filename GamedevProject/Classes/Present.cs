@@ -23,10 +23,5 @@ namespace GamedevProject.Classes
         {
             _spriteBatch.Draw(texture, new Vector2(Position.X, Position.Y), new Rectangle(584, 49, 15, 20), Color.White, 0, new Vector2(), 2, SpriteEffects.None, 0f);
         }
-
-        public void Update(GameTime gameTime)
-        {
-            HitBox = new Rectangle((int)Position.X + 5, (int)Position.Y, 25, 30);
-        }
     }
 }

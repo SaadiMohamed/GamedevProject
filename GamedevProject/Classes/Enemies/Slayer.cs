@@ -12,7 +12,7 @@ using SharpDX.Direct2D1.Effects;
 
 namespace GamedevProject.Classes.Enemies
 {
-    class Slayer: IEnemies, IMovable
+    class Slayer: IEnemies, IUpdate
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }

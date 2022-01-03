@@ -10,9 +10,11 @@ using GamedevProject.Blocks;
 
 namespace GamedevProject.Classes
 {
-    class MovementManager
+    // Single Responsiblity Principle
+
+    static class MovementManager
     {
-        public void Move(IMovable movable, List<IGameObject> objects)
+        static public void Move(IMovable movable, List<IGameObject> objects)
         {
             ICollide collide = movable as ICollide;
             IJumpable jumpable = movable as IJumpable;
@@ -55,7 +57,6 @@ namespace GamedevProject.Classes
             {
                 if (!hasCollide || movable.Position.Y <= jumpable.Landing)
                 {
-
                     movable.Position = futurePosition;
                     collide.HitBox = futureHitbox;
                     jumpable.Landing = 362;

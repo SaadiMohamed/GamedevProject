@@ -7,6 +7,8 @@ using System.Text;
 
 namespace GamedevProject.Blocks
 {
+
+    //SRP
     class MiddleBlock : Block
     {
         public MiddleBlock(int x, int y, GraphicsDevice graphics, ContentManager content) : base(x, y, graphics)

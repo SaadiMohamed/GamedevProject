@@ -11,13 +11,12 @@ using System.Text;
 
 namespace GamedevProject.Classes.Level
 {
-    internal class LevelTwo
+    internal class LevelTwo: IUpdate
     {
         public Hero Hero { set; get; }
         private Hedgehog hedgehog;
         private List<IGameObject> _gameObjects;
         private readonly int[,] gameboard;
-        private MovementManager _movementManager;
         private Texture2D _block;
         private Texture2D heart;
         private List<Present> presents;
@@ -25,7 +24,6 @@ namespace GamedevProject.Classes.Level
         public LevelTwo(Hero hero)
         {
             _gameObjects = new List<IGameObject>();
-            _movementManager = new MovementManager();
             Hero = hero;
             Hero.NextLevel = false;
             gameboard = new[,]
@@ -80,7 +78,7 @@ namespace GamedevProject.Classes.Level
             }
             Hero.Presents.ForEach(present => present.Draw(spriteBatch));
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
-            _movementManager.Move(Hero, _gameObjects);
+            MovementManager.Move(Hero, _gameObjects);
 
         }
         public void Update(GameTime gameTime)

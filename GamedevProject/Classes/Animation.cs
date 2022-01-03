@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GamedevProject.Interfaces;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GamedevProject.Classes
 {
-    class Animation
+    class Animation : IUpdate
     {
         public AnimationFrame CurrentFrame { get; set; }
         public List<AnimationFrame> frames;

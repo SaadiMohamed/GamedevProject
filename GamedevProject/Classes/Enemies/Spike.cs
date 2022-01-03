@@ -31,10 +31,5 @@ namespace GamedevProject.Classes.Enemies
         {
             _spriteBatch.Draw(texture, Position, new Rectangle(0,0,30,30), Color.White);
         }
-
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

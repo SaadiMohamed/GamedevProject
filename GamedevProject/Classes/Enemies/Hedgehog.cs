@@ -10,7 +10,7 @@ using System.Text;
 
 namespace GamedevProject.Classes.Enemies
 {
-    internal class Hedgehog : IEnemies, IMovable
+    internal class Hedgehog : IEnemies , IUpdate
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }

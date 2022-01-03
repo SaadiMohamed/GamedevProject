@@ -11,7 +11,7 @@ using System.Text;
 
 namespace GamedevProject.Classes
 {
-    class Hero : IGameObject, IMovable, IJumpable, ICollide
+    class Hero : IGameObject, IMovable, IJumpable, ICollide , IUpdate
     {
         Texture2D heroTexture;
         public List<Present> Presents { get; set; }

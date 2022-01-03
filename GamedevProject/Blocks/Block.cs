@@ -26,9 +26,5 @@ namespace GamedevProject.Blocks
             spriteBatch.Draw(Texture, BoundingBox, Color);
         }
 
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

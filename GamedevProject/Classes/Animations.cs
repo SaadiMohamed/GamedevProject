@@ -8,7 +8,6 @@ namespace GamedevProject.Classes
     {
          public Animation Idle { get; set; }
          public Animation Run { get; set; }
-
          public Animation Dead { get; set; }
     }
 }

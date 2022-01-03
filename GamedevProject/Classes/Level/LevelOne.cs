@@ -10,14 +10,13 @@ using System.Linq;
 
 namespace GamedevProject.Classes.Level
 {
-    internal class LevelOne
+    internal class LevelOne : IUpdate
     {
         public Hero Hero {set; get;}
         private Slayer _monster;
         private List<IGameObject> _gameObjects;
         private readonly int[,] gameboard;
         private Texture2D _heroTexture;
-        private MovementManager _movementManager;
         private Texture2D _block;
         private Texture2D heart;
         private List<Present> presents;
@@ -26,7 +25,6 @@ namespace GamedevProject.Classes.Level
         {
 
             _gameObjects = new List<IGameObject>();
-            _movementManager = new MovementManager();
             gameboard = new[,]
  {
                 { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -83,7 +81,7 @@ namespace GamedevProject.Classes.Level
                 Hero.Presents[i].Draw(spriteBatch);
             }
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
-            _movementManager.Move(Hero, _gameObjects);
+            MovementManager.Move(Hero, _gameObjects);
         }
 
         public void Update(GameTime gameTime)
