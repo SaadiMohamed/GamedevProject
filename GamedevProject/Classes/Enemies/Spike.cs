@@ -13,12 +13,13 @@ namespace GamedevProject.Classes
     {
         Texture2D texture;
         public Vector2 Position { get; set; }
+        public Rectangle HitBox { get; set; }
         public Vector2 Speed { get; set; }
         public IInputReader InputReader { get; set; }
         public SpriteEffects SpriteEffects { get; set; }
         public Animation currentAnimation { get; set; }
         public Animations movableAnimations { get; set; }
-        public Rectangle HitBox { get; set; }
+
         public Spike(ContentManager content, Vector2 position)
         {
             texture = content.Load<Texture2D>("spikes");

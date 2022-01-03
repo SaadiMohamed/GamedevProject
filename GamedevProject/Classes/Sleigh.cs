@@ -12,6 +12,8 @@ namespace GamedevProject.Classes
     {
         Texture2D texture;
         public Rectangle HitBox { get; set; }
+        public Vector2 Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Sleigh(ContentManager content , Rectangle position)
         {
             texture = content.Load<Texture2D>("SantaSleigh");
