@@ -32,7 +32,7 @@ namespace GamedevProject.States
             {
                 continueButton
             };
-            Hero.Instance.Init(content, new KeyboardReader(), new Vector2(200,200));
+            Hero.Instance.Lives = 3;
         }
 
 

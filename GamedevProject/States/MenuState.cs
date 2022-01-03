@@ -6,10 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using GamedevProject.Input;
 
 namespace GamedevProject.States
 {
     //state pattern
+
+    //https://www.youtube.com/watch?v=76Mz7ClJLoE 
+    //Deze tutorial gevolgd
     public class MenuState : State
     {
 

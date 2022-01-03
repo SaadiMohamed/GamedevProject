@@ -8,6 +8,9 @@ using System.Text;
 namespace GamedevProject.States
 {
     // State pattern
+
+    //https://www.youtube.com/watch?v=76Mz7ClJLoE 
+    //Deze tutorial gevolgd
     public abstract class State
     {
         protected ContentManager _content;

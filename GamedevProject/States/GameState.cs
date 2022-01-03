@@ -11,6 +11,7 @@ using GamedevProject.Input;
 namespace GamedevProject.States
 {
     //state pattern
+
     public class GameState : State
     {
         private LevelOne level1;
@@ -20,10 +21,11 @@ namespace GamedevProject.States
 
         public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
+            //DIP
             hero.Init(content, new KeyboardReader(), new Vector2(200, 200));
-            level1 = new LevelOne(hero);
+            level1 = new LevelOne();
             level1.AddObjects(graphicsDevice, content);
-            level2 = new LevelTwo(hero);
+            level2 = new LevelTwo();
             level2.AddObjects(graphicsDevice, content);
         }
 
@@ -38,10 +40,10 @@ namespace GamedevProject.States
 
         public override void Update(GameTime gameTime)
         {
-            if(level1.Hero.NextLevel && activeLevel == 1)
+            if(Hero.Instance.NextLevel && activeLevel == 1)
             {
                 activeLevel = 2;
-                level1.Hero.NextLevel = false;
+                Hero.Instance.NextLevel = false;
             }
                 
             if (activeLevel == 1)
@@ -53,16 +55,16 @@ namespace GamedevProject.States
                 level2.Update(gameTime);
             }
 
-            if ( level1.Hero.Lives < 1)
+            if ( Hero.Instance.Lives < 1)
             {
                 _game.ChangeState(new GameOverState(_game, _graphicsDevice, _content));
             }
-            if(level2.Hero.Presents.Count > 3)
+            if(Hero.Instance.Presents.Count > 3 && activeLevel == 2)
             {
-                if(level2.Hero.NextLevel)
+                if(Hero.Instance.NextLevel)
                     _game.ChangeState(new EndState(_game, _graphicsDevice, _content));
             }
-            level2.Hero.NextLevel = false;    
+            Hero.Instance.NextLevel = false;    
         }
     }
 }

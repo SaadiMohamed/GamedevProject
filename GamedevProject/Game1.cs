@@ -10,6 +10,8 @@ using System.Collections.Generic;
 
 namespace GamedevProject
 {
+    //https://www.youtube.com/watch?v=76Mz7ClJLoE 
+    //Deze tutorial gevolgd
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;

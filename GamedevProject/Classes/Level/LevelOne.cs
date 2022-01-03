@@ -12,7 +12,6 @@ namespace GamedevProject.Classes.Level
 {
     internal class LevelOne : IUpdate
     {
-        public Hero Hero { set; get; }
         private Slayer _monster;
         private List<IGameObject> _gameObjects;
         private readonly int[,] gameboard = new[,]
@@ -33,10 +32,7 @@ namespace GamedevProject.Classes.Level
         private Sleigh sleigh;
 
         //DIP
-        public LevelOne(Hero hero)
-        {
-            Hero = hero;
-        }
+        public LevelOne() { }
 
 
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
@@ -65,15 +61,15 @@ namespace GamedevProject.Classes.Level
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Hero.Draw(spriteBatch);
-            for (var i = 0; i < Hero.Lives; i++)
+            Hero.Instance.Draw(spriteBatch);
+            for (var i = 0; i < Hero.Instance.Lives; i++)
             {
                 spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
             }
-            for (var i = 0; i < Hero.Presents.Count; i++)
+            for (var i = 0; i < Hero.Instance.Presents.Count; i++)
             {
-                Hero.Presents[i].Position = new Vector2(800 - ((i + 1) * 30), 0);
-                Hero.Presents[i].Draw(spriteBatch);
+                Hero.Instance.Presents[i].Position = new Vector2(800 - ((i + 1) * 30), 0);
+                Hero.Instance.Presents[i].Draw(spriteBatch);
             }
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
             MovementManager.Move(_gameObjects);
@@ -82,7 +78,7 @@ namespace GamedevProject.Classes.Level
         public void Update(GameTime gameTime)
         {
             _monster.Update(gameTime);
-            Hero.Update(gameTime);
+            Hero.Instance.Update(gameTime);
         }
     }
 }

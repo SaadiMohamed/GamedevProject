@@ -6,6 +6,8 @@ using System.Text;
 
 namespace GamedevProject.Classes
 {
+    //https://www.youtube.com/watch?v=76Mz7ClJLoE 
+    //Deze tutorial gevolgd
     public abstract class Component
     {
         public abstract void Draw(GameTime gametime, SpriteBatch spriteBatch);

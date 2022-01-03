@@ -13,7 +13,6 @@ namespace GamedevProject.Classes.Level
 {
     internal class LevelTwo : IUpdate
     {
-        public Hero Hero { set; get; }
         private Hedgehog hedgehog;
         private List<IGameObject> _gameObjects;
         private readonly int[,] gameboard = new[,]
@@ -33,11 +32,6 @@ namespace GamedevProject.Classes.Level
         private List<Present> presents;
 
         //DIP
-        public LevelTwo(Hero hero)
-        {
-            Hero = hero;
-        }
-
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
             _gameObjects = new List<IGameObject>();
@@ -67,12 +61,12 @@ namespace GamedevProject.Classes.Level
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Hero.Draw(spriteBatch);
-            for (var i = 0; i < Hero.Lives; i++)
+            Hero.Instance.Draw(spriteBatch);
+            for (var i = 0; i < Hero.Instance.Lives; i++)
             {
                 spriteBatch.Draw(heart, new Vector2(i * 30, 0), Color.White);
             }
-            Hero.Presents.ForEach(present => present.Draw(spriteBatch));
+            Hero.Instance.Presents.ForEach(present => present.Draw(spriteBatch));
             _gameObjects.ForEach(obj => obj.Draw(spriteBatch));
             MovementManager.Move(_gameObjects);
 
@@ -80,7 +74,7 @@ namespace GamedevProject.Classes.Level
         public void Update(GameTime gameTime)
         {
             hedgehog.Update(gameTime);
-            Hero.Update(gameTime);
+            Hero.Instance.Update(gameTime);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace GamedevProject.Classes
             get { return lives; }
             set
             {
-                if (value > -1 && value < 3)
+                if (value > -1 && value < 4)
                     lives = value;
             }
         }
@@ -56,14 +56,16 @@ namespace GamedevProject.Classes
         public bool OnLanding { get; set; }
 
         private Color backgroundColor = Color.White;
+
+        //DIP
         public void Init(ContentManager content, IInputReader inputReader, Vector2 position)
         {
+            InputReader = inputReader;
             NextLevel = false;
             Presents = new List<Present>();
             movableAnimations = new Animations();
             OnLanding = false;
-            heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
-            InputReader = inputReader;
+            heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");           
             movableAnimations.Run = new Animation();
             movableAnimations.Idle = new Animation();
             Position = position;
@@ -90,7 +92,7 @@ namespace GamedevProject.Classes
 
         public void ChangeInput(IInputReader inputReader)
         {
-            this.InputReader = inputReader;
+            InputReader = inputReader;
         }
 
 
