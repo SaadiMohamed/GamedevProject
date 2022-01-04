@@ -12,9 +12,6 @@ namespace GamedevProject.Blocks
     {
         public RightBlock(int x, int y, GraphicsDevice graphics, ContentManager content) : base(x, y, graphics)
         {
-            BoundingBox = base.BoundingBox;
-            Passable = false;
-            Color = Color.White;
             Texture = content.Load<Texture2D>(@"TilesGround\3");
         }
     }

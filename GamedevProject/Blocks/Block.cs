@@ -18,7 +18,7 @@ namespace GamedevProject.Blocks
         {
             BoundingBox = new Rectangle(x, y, 50, 50);
             Passable = false;
-            Color = Color.Green;
+            Color = Color.White;
             Texture = new Texture2D(graphics, 1, 1);
         }
         public void Draw(SpriteBatch spriteBatch)
