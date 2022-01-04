@@ -35,7 +35,7 @@ namespace GamedevProject.Interfaces
                 IsFalling = true;
                 HasJumped = false;
                 vector = 8;
-                OnLanding = false;
+                OnLanding = true;
             }
             else
             {
