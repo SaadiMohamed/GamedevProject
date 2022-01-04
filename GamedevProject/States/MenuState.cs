@@ -19,22 +19,23 @@ namespace GamedevProject.States
 
         private List<Component> _components;
         private ContentManager content;
+        private SpriteFont font;
         public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
             var buttonTexture = _content.Load<Texture2D>(@"Controls\Button");
-            var buttonFont = _content.Load<SpriteFont>(@"Fonts\Font");
+            font = _content.Load<SpriteFont>(@"Fonts\Font");
             this.content = content;
-            var newGameButton = new Button(buttonTexture, buttonFont)
+            var newGameButton = new Button(buttonTexture, font)
             {
-                Position = new Vector2(300, 200),
+                Position = new Vector2(300, 250),
                 Text = "Play"
             };
 
             newGameButton.Click += newGameButton_Click;
 
-            var quitButton = new Button(buttonTexture, buttonFont)
+            var quitButton = new Button(buttonTexture, font)
             {
-                Position = new Vector2(300, 250),
+                Position = new Vector2(300, 300),
                 Text = "Quit"
             };
 
@@ -66,8 +67,11 @@ namespace GamedevProject.States
             }
             var arrows = content.Load<Texture2D>("arrows");
             var spacebar = content.Load<Texture2D>("spacebar");
-            spriteBatch.Draw(arrows,new Rectangle(600,300,200,100), Color.White);
-            spriteBatch.Draw(spacebar, new Rectangle(600, 420, 200,50 ), Color.White);
+            var title = content.Load<Texture2D>("Save christmas");
+            spriteBatch.Draw(arrows, new Rectangle(600, 300, 200, 100), Color.White);
+            spriteBatch.Draw(spacebar, new Rectangle(600, 420, 200, 50), Color.White);
+            spriteBatch.Draw(title, new Rectangle(180, 30, 400, 200), Color.White);
+            spriteBatch.DrawString(font, "Use left arrow and right arrow to move.\nUse Spacebar to jump.\nTry to collect as many presents as possible.\nYou can kill the slayer by jumping on him.", new Vector2(0, 240), Color.Black);
         }
 
         public override void Update(GameTime gameTime)
