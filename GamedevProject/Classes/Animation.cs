@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GamedevProject.Classes
 {
-    class Animation : IUpdate
+    class Animation : IUpdatable
     {
         public AnimationFrame CurrentFrame { get; set; }
         public List<AnimationFrame> frames;

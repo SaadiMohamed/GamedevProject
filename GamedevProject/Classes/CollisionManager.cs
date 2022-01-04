@@ -35,6 +35,7 @@ namespace GamedevProject.Classes
                 {
                     if (futureHitbox.Right > gameObjectHitbox.Left && futureHitbox.Right < gameObjectHitbox.Right || futureHitbox.Left > gameObjectHitbox.Left && futureHitbox.Left < gameObjectHitbox.Right)
                         jumpable.IsFalling = true;
+
                 }
                 else
                     jumpable.IsFalling = false;
@@ -47,7 +48,7 @@ namespace GamedevProject.Classes
                         monster.currentAnimation = monster.movableAnimations.Dead;
                     }
 
-                    if (monster.Speed.X < 0 && monster is Slayer )
+                    if (monster.Speed.X < 0 && monster is Slayer)
                     {
                         --Hero.Instance.Lives;
                         monster.Speed *= new Vector2(-1, 1);
@@ -58,7 +59,7 @@ namespace GamedevProject.Classes
                         --Hero.Instance.Lives;
                         monster.Speed *= new Vector2(-1, 1);
                     }
-                    if(monster is Spike)
+                    if (monster is Spike)
                     {
                         --Hero.Instance.Lives;
                     }
@@ -75,6 +76,7 @@ namespace GamedevProject.Classes
                     Hero.Instance.Presents.Add(present);
                     present.HitBox = new Rectangle();
                 }
+
 
                 if (hasCollide && gameObjectHitbox.Top - gameObjectHitbox.Height <= futureHitbox.Bottom + jumpable.JumpHeight && !jumpable.IsFalling)
                 {

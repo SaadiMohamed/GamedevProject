@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace GamedevProject.Classes.Level
 {
-    internal class LevelOne : IUpdate
+    internal class LevelOne : IUpdatable
     {
         private Slayer _monster;
         private List<IGameObject> _gameObjects;

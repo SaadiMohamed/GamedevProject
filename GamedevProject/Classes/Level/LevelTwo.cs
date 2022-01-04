@@ -11,7 +11,7 @@ using System.Text;
 
 namespace GamedevProject.Classes.Level
 {
-    internal class LevelTwo : IUpdate
+    internal class LevelTwo : IUpdatable
     {
         private Hedgehog hedgehog;
         private List<IGameObject> _gameObjects;

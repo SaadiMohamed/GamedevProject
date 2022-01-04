@@ -13,7 +13,7 @@ using System.Text;
 namespace GamedevProject.Classes
 {
     // singleton
-    class Hero : IGameObject, IMovable, IJumpable, ICollide , IUpdate
+    class Hero : IGameObject, IMovable, IJumpable, ICollide , IUpdatable
     {
             
         private static Hero instance;

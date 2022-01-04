@@ -7,7 +7,7 @@ namespace GamedevProject.Interfaces
 {
 
     // ISP 
-    interface IUpdate
+    interface IUpdatable
     {
         void Update(GameTime gameTime);
     }
