@@ -35,12 +35,13 @@ namespace GamedevProject.Interfaces
                 IsFalling = true;
                 HasJumped = false;
                 vector = 8;
-                OnLanding = true;
+                OnLanding = false;
             }
             else
             {
                 HeightDeparture = 0;
                 HasJumped = false;
+                OnLanding = true;
             }
             movable.Position += new Vector2(0, vector);
             return vector;

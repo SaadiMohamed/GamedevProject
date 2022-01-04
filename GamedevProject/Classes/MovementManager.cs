@@ -16,9 +16,9 @@ namespace GamedevProject.Classes
     {
         static public void Move(List<IGameObject> objects)
         {
-            ICollide collide = Hero.Instance ;
-            IJumpable jumpable = Hero.Instance ;
-            var direction = jumpable.OnLanding ? Hero.Instance.InputReader.ReadInput() : new Vector2(0,0);
+            ICollide collide = Hero.Instance;
+            IJumpable jumpable = Hero.Instance;
+            var direction = jumpable.OnLanding ? Hero.Instance.InputReader.ReadInput() : new Vector2(0, 0);
             if (Hero.Instance.InputReader.IsDestinationInput)
             {
                 direction -= Hero.Instance.Position;
