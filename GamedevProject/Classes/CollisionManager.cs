@@ -31,10 +31,13 @@ namespace GamedevProject.Classes
 
                 hasCollide = HasCollide(futureHitbox, gameObjectHitbox);
 
-                if (futureHitbox.Top <= gameObjectHitbox.Bottom && hasCollide && futureHitbox.Top > gameObjectHitbox.Top)
+                if (futureHitbox.Top <= gameObjectHitbox.Bottom && hasCollide && futureHitbox.Top > gameObjectHitbox.Top && jumpable.HasJumped)
                 {
-                    if (futureHitbox.Right > gameObjectHitbox.Left && futureHitbox.Right < gameObjectHitbox.Right || futureHitbox.Left > gameObjectHitbox.Left && futureHitbox.Left < gameObjectHitbox.Right)
+                    if (futureHitbox.Right >= gameObjectHitbox.Left && futureHitbox.Right <= gameObjectHitbox.Right || futureHitbox.Left >= gameObjectHitbox.Left && futureHitbox.Left <= gameObjectHitbox.Right)
+                    {
                         jumpable.IsFalling = true;
+                        break;
+                    }
 
                 }
                 else

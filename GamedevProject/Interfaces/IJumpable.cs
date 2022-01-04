@@ -30,7 +30,7 @@ namespace GamedevProject.Interfaces
             {
                 vector = -8;
             }
-            else if (movable.Position.Y < Landing)
+            else if (movable.Position.Y < Landing || IsFalling)
             {
                 IsFalling = true;
                 HasJumped = false;
