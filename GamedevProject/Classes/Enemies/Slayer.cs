@@ -44,7 +44,7 @@ namespace GamedevProject.Classes.Enemies
                 movableAnimations.Dead.AddFrame(new AnimationFrame(new Rectangle(i * 64, 280, 60, 40)));
             }
 
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y + 5, 95, 75);
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y + 5, 90, 75);
             currentAnimation = new Animation();
             currentAnimation = movableAnimations.Run;
         }
@@ -61,7 +61,7 @@ namespace GamedevProject.Classes.Enemies
                 SpriteEffects = SpriteEffects.FlipHorizontally;
             else
                 SpriteEffects = SpriteEffects.None;
-            if (HitBox.X >= (800 - 90) || HitBox.X <= 599)
+            if (HitBox.X >= (800 - 90) || HitBox.X <= 595)
             {
                 Speed *= new Vector2(-1, 1);
             }
@@ -70,7 +70,7 @@ namespace GamedevProject.Classes.Enemies
             if (currentAnimation == movableAnimations.Dead)
                 HitBox = new Rectangle(HitBox.X, HitBox.Y + 2, HitBox.Width, HitBox.Height);
             else
-                HitBox = new Rectangle((int)Position.X, (int)Position.Y + 5, 95, 75);
+                HitBox = new Rectangle((int)Position.X, (int)Position.Y + 5, 90, 75);
 
             if (currentAnimation.CurrentFrame == movableAnimations.Dead.frames.Last())
             {
