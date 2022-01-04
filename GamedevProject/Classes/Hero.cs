@@ -71,8 +71,8 @@ namespace GamedevProject.Classes
             Position = position;
             Speed = new Vector2(4, 4);
             HasJumped = false;
-            JumpHeight = 96;
-            HitBox = new Rectangle((int)position.X + 5, (int)position.Y + 10, 53, 56);
+            JumpHeight = 104;
+            HitBox = new Rectangle((int)position.X + 5, (int)position.Y + 10, 49, 56);
             Landing = 362;
             // loop-animatie
             for (int i = 0; i < 8; i++)
