@@ -21,7 +21,6 @@ namespace GamedevProject
         private Texture2D _backgroundTexture;
         private State _nextState;
         private State _currentState;
-        List<SoundEffect> soundEffects;
 
         public void ChangeState(State state)
         {
@@ -33,7 +32,6 @@ namespace GamedevProject
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            soundEffects = new List<SoundEffect>();
         }
 
         protected override void Initialize()
@@ -52,7 +50,6 @@ namespace GamedevProject
             blockTexture.SetData(new[] { Color.White });
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _currentState = new MenuState(this, _graphics.GraphicsDevice, Content);
-            soundEffects.Add(Content.Load<SoundEffect>("ChristmasBackgroundMusic"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,7 +57,6 @@ namespace GamedevProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            soundEffects[0].Play();
             if (_nextState != null)
             {
                 _currentState = _nextState;
