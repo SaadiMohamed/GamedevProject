@@ -34,6 +34,7 @@ namespace GamedevProject.Classes.Level
         //DIP
         public void AddObjects(GraphicsDevice graphicsDevice, ContentManager content)
         {
+            Hero.Instance.JumpHeight = 96;
             _gameObjects = new List<IGameObject>();
             heart = content.Load<Texture2D>("lives");
             hedgehog = new Hedgehog(content);

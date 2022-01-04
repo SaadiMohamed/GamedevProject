@@ -55,6 +55,7 @@ namespace GamedevProject.States
 
         private void newGameButton_Click(object sender, EventArgs e)
         {
+            Hero.Instance.Lives = 3;
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
         }
 

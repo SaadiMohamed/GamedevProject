@@ -12,7 +12,7 @@ using SharpDX.Direct2D1.Effects;
 
 namespace GamedevProject.Classes.Enemies
 {
-    class Slayer: IEnemies, IUpdatable
+    class Slayer : IEnemies, IUpdatable
     {
         Texture2D monsterTexture;
         public Vector2 Position { get; set; }
@@ -27,10 +27,12 @@ namespace GamedevProject.Classes.Enemies
 
         public Slayer(ContentManager content)
         {
-            movableAnimations = new Animations();
-            movableAnimations.Run = new Animation();
-            movableAnimations.Dead = new Animation(20);
-            monsterTexture = content.Load<Texture2D>("Shardsoul Slayer Sprite Sheet"); 
+            movableAnimations = new Animations
+            {
+                Run = new Animation(),
+                Dead = new Animation(20)
+            };
+            monsterTexture = content.Load<Texture2D>("Shardsoul Slayer Sprite Sheet");
             Position = new Vector2(600, 350);
 
             Speed = new Vector2(2, 0);
@@ -56,7 +58,7 @@ namespace GamedevProject.Classes.Enemies
 
         public void Update(GameTime gameTime)
         {
-          
+
             if (Speed.X < 0)
                 SpriteEffects = SpriteEffects.FlipHorizontally;
             else
@@ -66,7 +68,7 @@ namespace GamedevProject.Classes.Enemies
                 Speed *= new Vector2(-1, 1);
             }
             Position += Speed;
-         
+
             if (currentAnimation == movableAnimations.Dead)
                 HitBox = new Rectangle(HitBox.X, HitBox.Y + 2, HitBox.Width, HitBox.Height);
             else

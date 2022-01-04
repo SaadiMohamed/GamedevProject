@@ -31,9 +31,9 @@ namespace GamedevProject.Classes
 
                 hasCollide = HasCollide(futureHitbox, gameObjectHitbox);
 
-                if (futureHitbox.Top <= gameObjectHitbox.Bottom && hasCollide && futureHitbox.Top > gameObjectHitbox.Top && jumpable.HasJumped)
+                if ((futureHitbox.Top <= gameObjectHitbox.Bottom && hasCollide && futureHitbox.Top > gameObjectHitbox.Top && jumpable.HasJumped) || (futureHitbox.Top <= 0))
                 {
-                    if (futureHitbox.Right >= gameObjectHitbox.Left && futureHitbox.Right <= gameObjectHitbox.Right || futureHitbox.Left >= gameObjectHitbox.Left && futureHitbox.Left <= gameObjectHitbox.Right)
+                    if ((futureHitbox.Right >= gameObjectHitbox.Left && futureHitbox.Right <= gameObjectHitbox.Right) || (futureHitbox.Left >= gameObjectHitbox.Left && futureHitbox.Left <= gameObjectHitbox.Right) || (futureHitbox.Top <= 0))
                     {
                         jumpable.IsFalling = true;
                         break;
@@ -64,7 +64,7 @@ namespace GamedevProject.Classes
                     }
                     if (monster is Spike)
                     {
-                        --Hero.Instance.Lives;
+                        Hero.Instance.Lives = 0;
                     }
                 }
 

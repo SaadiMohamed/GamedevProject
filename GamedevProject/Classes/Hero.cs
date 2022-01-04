@@ -13,9 +13,9 @@ using System.Text;
 namespace GamedevProject.Classes
 {
     // singleton
-    class Hero : IGameObject, IMovable, IJumpable, ICollide , IUpdatable
+    class Hero : IGameObject, IMovable, IJumpable, ICollide, IUpdatable
     {
-            
+
         private static Hero instance;
 
         public static Hero Instance
@@ -30,7 +30,7 @@ namespace GamedevProject.Classes
         Texture2D heroTexture;
         public List<Present> Presents { get; set; }
         private int lives = 3;
-        public bool NextLevel { set; get; } 
+        public bool NextLevel { set; get; }
         public int Lives
         {
             get { return lives; }
@@ -65,7 +65,7 @@ namespace GamedevProject.Classes
             Presents = new List<Present>();
             movableAnimations = new Animations();
             OnLanding = false;
-            heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");           
+            heroTexture = content.Load<Texture2D>("Santa - Sprite Sheet");
             movableAnimations.Run = new Animation();
             movableAnimations.Idle = new Animation();
             Position = position;

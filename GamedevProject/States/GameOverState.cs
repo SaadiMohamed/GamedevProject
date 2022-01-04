@@ -32,7 +32,6 @@ namespace GamedevProject.States
             {
                 continueButton
             };
-            Hero.Instance.Lives = 3;
         }
 
 
