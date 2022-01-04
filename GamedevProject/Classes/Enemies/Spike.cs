@@ -9,7 +9,7 @@ using System.Text;
 
 namespace GamedevProject.Classes.Enemies
 {
-    internal class Spike : IEnemies
+    internal class Spike : IEnemies , IGameObject
     {
         Texture2D texture;
         public Vector2 Position { get; set; }
